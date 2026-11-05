@@ -1,0 +1,146 @@
+# Module 04: Supervised Learning. Classification
+
+Learn to classify data into categories using various classification algorithms.
+
+##  What You'll Learn
+
+- Logistic Regression
+- Decision Trees
+- Random Forests
+- Support Vector Machines (SVM)
+- K-Nearest Neighbors (KNN)
+- Naive Bayes (Gaussian, Multinomial, Bernoulli)
+- Multi-Class Classification Strategies (One-vs-Rest, One-vs-One)
+- Evaluation Metrics for Classification
+- Real-world Classification Projects
+
+## ML for beginners curriculum map
+
+| Topic | Where to study |
+|-------|----------------|
+| Logistic regression | [Classification guide](classification.md#logistic-regression) |
+| K-Nearest Neighbours (distance-based) | [KNN](classification.md#k-nearest-neighbors-knn) |
+| Naive Bayes (probabilistic) | [Naive Bayes](classification.md#naive-bayes) |
+| EDA and data cleaning | [EDA guide](../01-python-for-data-science/04-exploratory-data-analysis.md#ml-for-beginners-curriculum-map-this-guide) |
+| Feature relationships (scatter, covariance, correlation) | [Feature relationship analysis](classification.md#feature-relationship-analysis) |
+| Feature engineering and preprocessing | [Feature engineering](../07-feature-engineering/feature-engineering.md#ml-for-beginners-curriculum-map-this-guide) |
+| Projects implementing algorithms | [Beginner projects](../16-projects-beginner/README.md#ml-for-beginners-curriculum-map-projects) |
+
+## Advanced machine learning curriculum map
+
+| Topic | Where to study |
+|-------|----------------|
+| Decision tree classification; entropy and information gain | [Classification guide](classification.md#decision-trees), [Entropy and rules](classification.md#entropy-information-gain-and-rule-based-intuition) |
+| Rule-based intuition; overfitting (tree depth) | [Entropy section](classification.md#entropy-information-gain-and-rule-based-intuition), [Decision trees](classification.md#decision-trees) |
+| Random Forest; tree vs forest | [Random forests](classification.md#random-forests), [Comparison](classification.md#decision-tree-versus-random-forest) |
+| SVM; margin, hyperplane, kernels | [SVM](classification.md#support-vector-machines-svm), [Margins and kernels](classification.md#margin-hyperplane-and-kernel-intuition) |
+| Supervised model comparison; training and accuracy | [Model comparison](classification.md#supervised-model-training-and-performance-comparison), [Metrics](classification.md#evaluation-metrics) |
+
+##  Topics Covered
+
+### 1. Logistic Regression
+- Binary Classification
+- Multinomial Classification
+- Sigmoid Function
+- Decision Boundaries
+- When to use Logistic Regression
+
+### 2. Decision Trees
+- How Decision Trees Work
+- Splitting Criteria (Gini, Entropy)
+- Pruning to Prevent Overfitting
+- Pros and Cons
+
+### 3. Random Forests
+- Ensemble Method (Bagging)
+- How Random Forests Work
+- Feature Importance
+- When to use Random Forests
+
+### 4. Support Vector Machines (SVM)
+- Maximum Margin Classifier
+- Kernel Trick (Linear, Polynomial, RBF)
+- When to use SVM
+
+### 5. K-Nearest Neighbors (KNN)
+- Instance-based Learning
+- Distance Metrics
+- Choosing K
+- Pros and Cons
+
+### 6. Evaluation Metrics
+- **Accuracy**: Overall correctness
+- **Precision**: Of positive predictions, how many are correct
+- **Recall**: Of actual positives, how many were found
+- **F1-Score**: Harmonic mean of precision and recall
+- **ROC-AUC**: Area under ROC curve
+- **Confusion Matrix**: Detailed breakdown of predictions
+
+##  Learning Objectives
+
+By the end of this module, you should be able to:
+- Implement various classification algorithms (Logistic Regression, Decision Trees, Random Forest, SVM, KNN)
+- Choose appropriate algorithms for different problems
+- Evaluate classification models using multiple metrics (Accuracy, Precision, Recall, F1, ROC-AUC, PR-AUC)
+- Handle imbalanced datasets using resampling, class weights, and threshold tuning
+- Calibrate probabilities for meaningful predictions
+- Interpret model predictions and feature importance
+- Build a complete classification project from scratch
+
+##  Projects
+
+1. **Iris Flower Classification**: Classify iris species
+2. **Spam Email Detection**: Classify emails as spam or not
+3. **Titanic Survival Prediction**: Predict if passengers survived
+4. **Customer Churn Prediction**: Predict if customers will leave
+
+##  Key Concepts
+
+- **Decision Boundary**: Line/curve separating classes
+- **Probability Threshold**: Cutoff for classification
+- **Class Imbalance**: Unequal distribution of classes
+- **One-vs-Rest**: Strategy for multiclass classification
+- **Feature Importance**: Which features matter most
+
+## Documentation & Learning Resources
+
+**Official Documentation:**
+- [Classification - Scikit-learn](https://scikit-learn.org/stable/supervised_learning.html#classification)
+- [Classification Metrics - Scikit-learn](https://scikit-learn.org/stable/modules/model_evaluation.html#classification-metrics)
+- [Decision Trees Documentation](https://scikit-learn.org/stable/modules/tree.html)
+- [Random Forest Documentation](https://scikit-learn.org/stable/modules/ensemble.html#forest)
+
+**Free Courses:**
+- [Classification Algorithms (Coursera)](https://www.coursera.org/learn/machine-learning): Week 3-4 of Andrew Ng's course
+- [Classification (Kaggle Learn)](https://www.kaggle.com/learn/intro-to-machine-learning): Free micro-course
+
+**Tutorials:**
+- [Logistic Regression Tutorial (Real Python)](https://realpython.com/logistic-regression-python/)
+- [Decision Trees Tutorial](https://scikit-learn.org/stable/modules/tree.html#tree)
+- [Random Forest Explained](https://towardsdatascience.com/understanding-random-forest-58381e0602d2)
+- [SVM Tutorial](https://scikit-learn.org/stable/modules/svm.html)
+
+**Video Tutorials:**
+- [Logistic Regression (StatQuest)](https://www.youtube.com/watch?v=yIYKR4sgzI8)
+- [Decision Trees (StatQuest)](https://www.youtube.com/watch?v=7VeUPuFGJHk)
+- [Random Forest (StatQuest)](https://www.youtube.com/watch?v=J4Wdy0Wc_xQ)
+- [SVM (StatQuest)](https://www.youtube.com/watch?v=efR1C6CvhmE)
+- [KNN (StatQuest)](https://www.youtube.com/watch?v=HVXime0nQeI)
+
+**Practice:**
+- [Titanic Competition (Kaggle)](https://www.kaggle.com/c/titanic): Classic classification problem
+- [Classification Exercises](https://www.kaggle.com/learn/machine-learning)
+
+**[Complete Detailed Guide](classification.md)**
+
+### Additional Resources
+
+- **[Advanced Classification Topics](classification-advanced-topics.md)** - Handling imbalanced data, probability calibration, threshold tuning, precision-recall curves, model interpretation, multiclass strategies, feature engineering, hyperparameter tuning, and ensemble methods
+- **[Complete Classification Project Tutorial](classification-project-tutorial.md)** - Step-by-step walkthrough building a customer churn prediction model from scratch
+- **[Classification Quick Reference](classification-quick-reference.md)** - Quick reference guide with code snippets, algorithm selection, metrics, and troubleshooting
+
+---
+
+**Previous Module:** [03-supervised-learning-regression](../03-supervised-learning-regression/README.md)  
+**Next Module:** [05-model-evaluation-optimization](../05-model-evaluation-optimization/README.md)
+

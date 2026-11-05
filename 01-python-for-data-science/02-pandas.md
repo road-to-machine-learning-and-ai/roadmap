@@ -1,0 +1,1845 @@
+# Pandas
+
+This guide covers Pandas. The most important library for data manipulation and analysis in Python.
+
+## ML toolbox curriculum map (this guide)
+
+Checklist aligned with the **ML toolbox** path; each item points to sections **with code** below. Numeric arrays and broadcasting are in the [NumPy guide](01-numpy.md#ml-toolbox-curriculum-map-this-guide).
+
+- **Pandas Series, DataFrame & file handling (CSV/Excel etc.)**. See [Series and DataFrames](#series-and-dataframes), [Reading and writing data](#reading-and-writing-data)
+- **Data access: indexing, `loc` / `iloc` & filtering**. See [Data selection and filtering](#data-selection-and-filtering)
+- **Indexing, slicing, copying & iteration patterns**. See [Data selection and filtering](#data-selection-and-filtering), [DataFrame basics](#dataframe-basics-and-inspection)
+- **Modifying data** (add/drop rows & columns, assign values), [Data cleaning](#data-cleaning) (drops, fills), [Data selection](#data-selection-and-filtering) (updates via `loc` / `iloc`)
+- **Duplicates, missing data & datetime**. See [Data cleaning](#data-cleaning), [Time series operations](#time-series-operations)
+- **Sorting & basic statistics**. See [Sorting and basic statistics](#sorting-and-basic-statistics)
+- **Apply functions, aggregation & GroupBy**. See [Grouping and aggregation](#grouping-and-aggregation), [Advanced tricks (apply / map)](#advanced-tricks-and-performance)
+- **Merging tables**. See [Merging and joining](#merging-and-joining)
+- **Plots & NumPy numerics**. See [Visualization guide](03-visualization.md#ml-toolbox-curriculum-map-this-guide)
+
+## Table of Contents
+
+- [ML toolbox curriculum map (this guide)](#ml-toolbox-curriculum-map-this-guide)
+- [Introduction](#introduction)
+- [Series and DataFrames](#series-and-dataframes)
+- [DataFrame Basics and Inspection](#dataframe-basics-and-inspection)
+- [Reading and Writing Data](#reading-and-writing-data)
+- [Data Selection and Filtering](#data-selection-and-filtering)
+- [Data Cleaning](#data-cleaning)
+- [Sorting and Basic Statistics](#sorting-and-basic-statistics)
+- [Grouping and Aggregation](#grouping-and-aggregation)
+- [Merging and Joining](#merging-and-joining)
+- [Time Series Operations](#time-series-operations)
+- [Advanced Tricks and Performance](#advanced-tricks-and-performance)
+- [Practice Exercises](#practice-exercises)
+
+---
+
+## Introduction
+
+### What is Pandas?
+
+Pandas is a library for data manipulation and analysis. It provides:
+- **DataFrame**: 2D labeled data structure (like Excel spreadsheet)
+- **Series**: 1D labeled array
+- **Powerful tools**: For cleaning, transforming, and analyzing data
+
+### Why Pandas?
+
+- **Easy data manipulation**: Load, clean, transform data easily
+- **Handles missing data**: Built-in functions for dealing with NaN
+- **Time series**: Excellent support for time-based data
+- **Integration**: Works with NumPy, Matplotlib, and Scikit-learn
+
+### Installation
+
+```python
+pip install pandas
+```
+
+```python
+import pandas as pd
+import numpy as np
+print(pd.__version__)
+```
+
+---
+
+## Series and DataFrames
+
+### Series
+
+A Series is a one-dimensional labeled array.
+
+```python
+# Creating Series
+s = pd.Series([1, 2, 3, 4, 5])
+print(s)
+# Output:
+# 0    1
+# 1    2
+# 2    3
+# 3    4
+# 4    5
+# dtype: int64
+
+# With custom index
+s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+print(s)
+# Output:
+# a    10
+# b    20
+# c    30
+# dtype: int64
+
+# From dictionary
+s = pd.Series({'Alice': 25, 'Bob': 30, 'Charlie': 35})
+print(s)
+```
+
+### DataFrame
+
+A DataFrame is a 2D labeled data structure with columns of potentially different types.
+
+```python
+# Creating DataFrame from dictionary
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000]
+}
+df = pd.DataFrame(data)
+print(df)
+# Output:
+#       Name  Age      City  Salary
+# 0    Alice   25  New York   50000
+# 1      Bob   30    London   60000
+# 2  Charlie   35     Tokyo   70000
+# 3    Diana   28     Paris   55000
+
+# From list of lists
+rows = [['Alice', 25], ['Bob', 30], ['Charlie', 35]]
+df_from_rows = pd.DataFrame(rows, columns=['Name', 'Age'])
+print(df_from_rows)
+
+# From NumPy array
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+df_from_arr = pd.DataFrame(arr, columns=['A', 'B', 'C'])
+print(df_from_arr)
+
+# Keep the dict-based frame for later cells
+df = pd.DataFrame(data)
+```
+
+> [!RECALL]
+> When is a Series enough, and when do you need a DataFrame instead?
+>
+> Series for one labeled column of values. DataFrame when you need a table of aligned columns.
+
+### DataFrame Properties
+
+```python
+df = pd.DataFrame(data)
+
+print(df.shape)        # Output: (4, 4) - (rows, columns)
+print(df.size)         # Output: 16 - total elements
+print(df.columns)      # Output: Index(['Name', 'Age', 'City', 'Salary'])
+print(df.index)        # Output: RangeIndex(start=0, stop=4, step=1)
+print(df.dtypes)       # Data types of each column
+print(df.info())       # Summary information
+print(df.describe())   # Statistical summary
+```
+
+---
+
+## DataFrame Basics and Inspection
+
+### Inspecting Data
+
+Quickly understand your dataset using inspection functions:
+
+```python
+df = pd.DataFrame(data)
+
+# First few rows
+print(df.head())       # First 5 rows (default)
+print(df.head(3))     # First 3 rows
+
+# Last few rows
+print(df.tail())      # Last 5 rows (default)
+print(df.tail(3))     # Last 3 rows
+
+# Dataset structure
+print(df.shape)       # Output: (4, 4) - (rows, columns)
+print(df.size)        # Output: 16 - total elements
+print(df.ndim)        # Output: 2 - number of dimensions
+
+# Data types
+print(df.dtypes)      # Data type of each column
+# Output:
+# Name      object
+# Age        int64
+# City      object
+# Salary     int64
+
+# Summary information
+print(df.info())      # Detailed info about DataFrame
+# Output:
+# <class 'pandas.core.frame.DataFrame'>
+# RangeIndex: 4 entries, 0 to 3
+# Data columns (total 4 columns):
+#  Name      4 non-null object
+#  Age       4 non-null int64
+#  ...
+
+# Statistical summary (numeric columns only)
+print(df.describe())
+# Output:
+#              Age        Salary
+# count   4.000000      4.000000
+# mean   29.500000  58750.000000
+# std     4.041452   8164.965809
+# min    25.000000  50000.000000
+# 25%    27.250000  53750.000000
+# 50%    29.000000  57500.000000
+# 75%    32.250000  62500.000000
+# max    35.000000  70000.000000
+```
+
+### Index & Columns Overview
+
+Explore DataFrame components:
+
+```python
+# View index
+print(df.index)        # Output: RangeIndex(start=0, stop=4, step=1)
+print(df.index.tolist())  # [0, 1, 2, 3]
+
+# View columns
+print(df.columns)      # Output: Index(['Name', 'Age', 'City', 'Salary'])
+print(df.columns.tolist())  # ['Name', 'Age', 'City', 'Salary']
+
+# Underlying NumPy data
+print(df.values)      # Returns NumPy array
+# Output:
+# [['Alice' 25 'New York' 50000]
+#  ['Bob' 30 'London' 60000]
+#  ...]
+
+# Check if index/columns are unique
+print(df.index.is_unique)    # True
+print(df.columns.is_unique)  # True
+```
+
+### Renaming Columns
+
+```python
+# Start from a known schema so rename demos stay consistent
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000]
+})
+
+# Rename single column
+df = df.rename(columns={'Age': 'Years'})
+print(df.columns)  # ['Name', 'Years', 'City', 'Salary']
+
+# Rename multiple columns
+df = df.rename(columns={
+    'Name': 'Full Name',
+    'City': 'Location',
+    'Salary': 'Income'
+})
+
+# Rename using mapper function
+df = df.rename(columns=str.lower)  # Convert to lowercase
+df = df.rename(columns=str.upper)  # Convert to uppercase
+
+# In-place renaming (column must still exist)
+df.rename(columns={'YEARS': 'AGE'}, inplace=True)
+```
+
+### Setting and Resetting Index
+
+```python
+# Fresh frame for index demos
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000]
+})
+
+# Set a column as index
+df_indexed = df.set_index('Name')
+print(df_indexed)
+# Output:
+#          Age      City  Salary
+# Name                          
+# Alice    25  New York   50000
+# Bob      30    London   60000
+# ...
+
+# Reset index (move index back to column)
+df_reset = df_indexed.reset_index()
+print(df_reset)
+# Output:
+#      Name  Age      City  Salary
+# 0   Alice   25  New York   50000
+# 1     Bob   30    London   60000
+# ...
+
+# Reset index without keeping old index as column
+df_reset = df_indexed.reset_index(drop=True)
+
+# Set multiple columns as index
+df_multi = df.set_index(['City', 'Name'])
+print(df_multi.index)  # MultiIndex
+```
+
+### Basic Attributes Recap
+
+Quick reference for core attributes:
+
+```python
+# Structure
+df.shape          # (rows, columns)
+df.size           # Total elements
+df.ndim           # Number of dimensions
+
+# Components
+df.columns        # Column names
+df.index          # Row index
+df.values         # NumPy array
+
+# Data types
+df.dtypes         # Data type per column
+df.dtypes.value_counts()  # Count of each data type
+
+# Memory usage
+df.memory_usage()  # Memory usage per column
+df.memory_usage(deep=True)  # Deep memory usage (includes objects)
+```
+
+---
+
+## Reading and Writing Data
+
+### Reading CSV Files
+
+```python
+# Read CSV
+df = pd.read_csv('data.csv')
+
+# With options
+df = pd.read_csv('data.csv', 
+                 sep=',',           # Separator
+                 header=0,          # Row to use as header
+                 index_col=0,       # Column to use as index
+                 na_values=['NA', 'N/A'],  # Values to treat as NaN
+                 nrows=1000)        # Read only first 1000 rows
+
+# Read with specific columns
+df = pd.read_csv('data.csv', usecols=['Name', 'Age', 'Salary'])
+```
+
+### Reading Other Formats
+
+```python
+# Excel
+df = pd.read_excel('data.xlsx', sheet_name='Sheet1')
+
+# JSON
+df = pd.read_json('data.json')
+
+# HTML tables
+df = pd.read_html('https://example.com/table.html')[0]
+
+# SQL
+import sqlite3
+conn = sqlite3.connect('database.db')
+df = pd.read_sql_query("SELECT * FROM table", conn)
+```
+
+### Writing Data
+
+```python
+# Write to CSV
+df.to_csv('output.csv', index=False)
+
+# Write to Excel
+df.to_excel('output.xlsx', sheet_name='Data', index=False)
+
+# Write to JSON
+df.to_json('output.json', orient='records')
+
+# Write to SQL
+df.to_sql('table_name', conn, if_exists='replace', index=False)
+```
+
+---
+
+## Data Selection and Filtering
+
+### Selecting Columns
+
+```python
+df = pd.DataFrame(data)
+
+# Single column (returns Series)
+ages = df['Age']
+print(ages)
+
+# Multiple columns (returns DataFrame)
+subset = df[['Name', 'Age']]
+print(subset)
+
+# Using dot notation (only if column name is valid Python identifier)
+ages = df.Age
+```
+
+### Selecting Rows
+
+```python
+# By index
+first_row = df.iloc[0]        # First row
+first_three = df.iloc[0:3]    # First 3 rows
+
+# By label
+row = df.loc[0]               # Row with index 0
+
+# First/last n rows
+head = df.head(3)             # First 3 rows
+tail = df.tail(3)             # Last 3 rows
+```
+
+### Filtering
+
+```python
+# Boolean indexing
+young = df[df['Age'] < 30]
+print(young)
+# Output:
+#     Name  Age      City  Salary
+# 0  Alice   25  New York   50000
+# 3  Diana   28     Paris   55000
+
+# Multiple conditions
+filtered = df[(df['Age'] > 25) & (df['Salary'] > 55000)]
+print(filtered)
+
+# Using query method
+filtered = df.query('Age > 25 and Salary > 55000')
+print(filtered)
+
+# isin() method
+cities = ['New York', 'London']
+filtered = df[df['City'].isin(cities)]
+print(filtered)
+```
+
+### iloc vs loc
+
+```python
+# iloc: Integer position-based indexing
+df.iloc[0, 1]        # Row 0, Column 1
+df.iloc[0:3, 1:3]    # Rows 0-2, Columns 1-2
+
+# loc: Label-based indexing
+df.loc[0, 'Age']     # Row with index 0, column 'Age'
+df.loc[0:2, 'Name':'City']  # Rows 0-2, columns Name to City
+```
+
+---
+
+## Data Cleaning
+
+### Handling Missing Values
+
+Detect missing entries and handle them appropriately:
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Check for missing values
+print(df.isnull())           # Boolean DataFrame (True where NaN)
+print(df.isna())             # Same as isnull()
+print(df.isnull().sum())     # Count missing per column
+print(df.isnull().any())     # True if any missing in column
+print(df.isnull().any().any())  # True if any missing in entire DataFrame
+
+# Drop missing values
+df_clean = df.dropna()              # Drop rows with any NaN
+df_clean = df.dropna(axis=1)        # Drop columns with any NaN
+df_clean = df.dropna(subset=['Age'])  # Drop rows where Age is NaN
+df_clean = df.dropna(how='all')     # Drop rows where ALL values are NaN
+df_clean = df.dropna(thresh=2)      # Keep rows with at least 2 non-NaN values
+
+# Fill missing values
+df_filled = df.fillna(0)            # Fill with constant (0)
+df_filled = df.fillna({'Age': 0, 'Salary': 50000})  # Fill different columns with different values
+df_filled = df.fillna(df.mean(numeric_only=True))    # Fill with mean (numeric columns only)
+df_filled = df['Age'].fillna(df['Age'].mean())  # Fill specific column with its mean
+df_filled = df.fillna(df.median(numeric_only=True))  # Fill with median
+df_filled = df.fillna(df.mode().iloc[0])  # Fill with mode
+
+# Forward fill / Backward fill
+df_ffill = df.ffill()  # Forward fill (use previous value)
+df_bfill = df.bfill()  # Backward fill (use next value)
+df_ffill_limit = df.ffill(limit=2)  # Limit forward fill to 2 consecutive NaNs
+
+# Interpolation
+df_interp = df.interpolate(numeric_only=True)  # Linear interpolation
+```
+
+### Handling Duplicates
+
+```python
+# Check for duplicates
+print(df.duplicated())      # Boolean Series
+print(df.duplicated().sum()) # Count duplicates
+
+# Drop duplicates
+df_unique = df.drop_duplicates()              # Drop all duplicates
+df_unique = df.drop_duplicates(subset=['Name'])  # Drop based on column
+```
+
+### Changing Data Types (astype)
+
+Convert columns to correct types for data compatibility:
+
+```python
+# Frame with mixed types for conversion demos
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': ['25', '30', '35', '28'],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': ['50000', '60000', '70000', '55000'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [1, 0, 1, 1],
+})
+
+# Check data types
+print(df.dtypes)
+
+# Convert to integer
+df['Age'] = df['Age'].astype(int)
+df['Age'] = df['Age'].astype('int64')  # Explicit type
+
+# Convert to float
+df['Salary'] = df['Salary'].astype(float)
+df['Salary'] = df['Salary'].astype('float64')
+
+# Convert to string
+df['Name'] = df['Name'].astype(str)
+df['Name'] = df['Name'].astype('string')  # Pandas string type
+
+# Convert to category (saves memory for repeated values)
+df['City'] = df['City'].astype('category')
+print(df['City'].cat.categories)  # View categories
+
+# Convert to datetime
+df['Date'] = pd.to_datetime(df['Date'])
+df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d')  # With format
+
+# Convert to boolean
+df['IsActive'] = df['IsActive'].astype(bool)
+
+# Convert multiple columns at once
+df[['Age', 'Salary']] = df[['Age', 'Salary']].astype(float)
+
+# Handle errors during conversion
+df['Age'] = pd.to_numeric(df['Age'], errors='coerce')  # Convert invalid to NaN
+df['Age'] = pd.to_numeric(df['Age'], errors='coerce')  # Prefer coerce over removed 'ignore'
+```
+
+### Replacing Values (replace)
+
+Clean or fix specific data points and typos:
+
+```python
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+})
+
+# Replace single value
+df['City'] = df['City'].replace('New York', 'NYC')
+
+# Replace multiple values
+df['City'] = df['City'].replace(['New York', 'London'], ['NYC', 'LON'])
+
+# Replace using dictionary
+df = df.replace({'City': {'New York': 'NYC', 'London': 'LON'}})
+
+# Replace in specific column
+df['Age'] = df['Age'].replace(25, 26)
+
+# Replace using mapping dictionary
+mapping = {25: 26, 30: 31}
+df['Age'] = df['Age'].replace(mapping)
+
+# Replace using regex patterns
+df['Name'] = df['Name'].replace(r'^A', 'Alpha', regex=True)  # Replace 'A' at start
+df['City'] = df['City'].replace(r'York$', 'City', regex=True)  # Replace 'York' at end
+
+# Replace NaN with specific value
+df = df.replace(np.nan, 'Unknown')
+
+# Replace multiple values with one
+df['Status'] = df['Status'].replace(['Active', 'A', 'active'], 'ACTIVE')
+```
+
+### Dropping Rows & Columns (drop)
+
+Remove unnecessary rows or columns:
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Drop rows by index
+df_dropped = df.drop(0)              # Drop row with index 0
+df_dropped = df.drop([0, 2])          # Drop rows with indices 0 and 2
+df_dropped = df.drop(df.index[0:2])   # Drop first 2 rows
+
+# Drop columns
+df_dropped = df.drop('City', axis=1)   # Drop column 'City'
+df_dropped = df.drop(['City', 'Age'], axis=1)  # Drop multiple columns
+df_dropped = df.drop(columns=['City', 'Age'])  # Alternative syntax
+
+# Drop using axis parameter
+df_dropped = df.drop('City', axis=1)  # axis=1 for columns
+df_dropped = df.drop(0, axis=0)       # axis=0 for rows (default)
+
+# In-place modification
+df.drop('City', axis=1, inplace=True)  # Modify original DataFrame
+
+# Drop rows/columns with errors handling
+df_dropped = df.drop('NonExistent', axis=1, errors='ignore')  # Ignore if doesn't exist
+```
+
+### Detecting & Removing Duplicates
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Check for duplicates
+print(df.duplicated())           # Boolean Series (True for duplicates)
+print(df.duplicated().sum())    # Count of duplicate rows
+
+# Check duplicates in specific column
+print(df.duplicated(subset=['Name']))
+
+# Keep parameter: 'first' (default), 'last', or False
+print(df.duplicated(keep='first'))   # Mark all but first as duplicate
+print(df.duplicated(keep='last'))    # Mark all but last as duplicate
+print(df.duplicated(keep=False))     # Mark all duplicates
+
+# Drop duplicates
+df_unique = df.drop_duplicates()              # Drop all duplicate rows
+df_unique = df.drop_duplicates(keep='first')  # Keep first occurrence
+df_unique = df.drop_duplicates(keep='last')   # Keep last occurrence
+df_unique = df.drop_duplicates(keep=False)    # Drop all duplicates
+
+# Drop duplicates based on specific columns
+df_unique = df.drop_duplicates(subset=['Name'])  # Based on Name only
+df_unique = df.drop_duplicates(subset=['Name', 'City'])  # Based on multiple columns
+
+# In-place
+df.drop_duplicates(inplace=True)
+```
+
+### String Operations
+
+Use `.str` accessor for text-based filtering and cleaning:
+
+```python
+# Case conversion
+df['Name'].str.upper()           # Convert to uppercase
+df['Name'].str.lower()           # Convert to lowercase
+df['Name'].str.title()           # Title case
+df['Name'].str.capitalize()      # Capitalize first letter
+
+# Whitespace handling
+df['Name'].str.strip()           # Remove leading/trailing whitespace
+df['Name'].str.lstrip()          # Remove leading whitespace
+df['Name'].str.rstrip()          # Remove trailing whitespace
+
+# String replacement
+df['Name'].str.replace(' ', '_')  # Replace characters
+df['Name'].str.replace(r'[0-9]', '', regex=True)  # Remove digits using regex
+
+# String checking (returns boolean Series for filtering)
+df['Name'].str.contains('Alice')      # Check if contains substring
+df['Name'].str.startswith('A')        # Check if starts with
+df['Name'].str.endswith('e')          # Check if ends with
+df['Name'].str.match('^A.*')          # Check if matches pattern
+
+# String splitting
+df['Name'].str.split(' ')             # Split string into list
+df['Name'].str.split(' ', expand=True)  # Split into separate columns
+df['Name'].str.split(' ', n=1)        # Split into max n parts
+
+# String extraction
+df['Name'].str.extract(r'([A-Z])')    # Extract pattern
+df['Name'].str.findall(r'[A-Z]')      # Find all matches
+
+# String length
+df['Name'].str.len()                  # Length of each string
+
+# Filtering with string operations
+filtered = df[df['Name'].str.contains('Alice')]
+filtered = df[df['Name'].str.startswith('A')]
+filtered = df[df['Name'].str.endswith('e')]
+```
+
+---
+
+## Sorting and Basic Statistics
+
+### Sorting Data
+
+Sort data by one or multiple columns:
+
+```python
+# Sort by single column
+df_sorted = df.sort_values('Age')              # Ascending (default)
+df_sorted = df.sort_values('Age', ascending=False)  # Descending
+
+# Sort by multiple columns
+df_sorted = df.sort_values(['City', 'Age'])    # Sort by City, then Age
+df_sorted = df.sort_values(['City', 'Age'], ascending=[True, False])  # Different order for each
+
+# Sort by index
+df_sorted = df.sort_index()                    # Sort by row index
+df_sorted = df.sort_index(axis=1)              # Sort by column index
+
+# In-place sorting
+df.sort_values('Age', inplace=True)
+
+# Handle NaN values
+df_sorted = df.sort_values('Age', na_position='first')   # NaNs first
+df_sorted = df.sort_values('Age', na_position='last')    # NaNs last (default)
+```
+
+### Descriptive Statistics
+
+Summarize and understand numeric data:
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Mean (average)
+print(df['Age'].mean())         # Mean of Age column
+print(df.mean(numeric_only=True))                # Mean of all numeric columns
+
+# Median
+print(df['Age'].median())       # Median of Age column
+print(df.median(numeric_only=True))              # Median of all numeric columns
+
+# Mode
+print(df['City'].mode())        # Most frequent value(s)
+print(df.mode())                 # Mode for each column
+
+# Standard deviation
+print(df['Age'].std())          # Standard deviation
+print(df.std(numeric_only=True))                 # Std for all numeric columns
+
+# Variance
+print(df['Age'].var())          # Variance
+print(df.var(numeric_only=True))                 # Variance for all numeric columns
+
+# Min and Max
+print(df['Age'].min())          # Minimum value
+print(df['Age'].max())          # Maximum value
+print(df.min(numeric_only=True))                 # Min for all columns
+print(df.max(numeric_only=True))                 # Max for all columns
+
+# Comprehensive summary
+print(df.describe())            # Summary statistics for numeric columns
+print(df.describe(include='all'))  # Include categorical columns
+
+# Additional statistics
+print(df['Age'].quantile(0.25))  # 25th percentile (Q1)
+print(df['Age'].quantile(0.75))  # 75th percentile (Q3)
+print(df['Age'].quantile([0.25, 0.5, 0.75]))  # Multiple percentiles
+print(df['Age'].skew())         # Skewness
+print(df['Age'].kurtosis())     # Kurtosis
+```
+
+### Counting Values
+
+Find frequency or percentage of unique values:
+
+```python
+# Count unique values (frequency)
+print(df['City'].value_counts())
+# Output:
+# New York    2
+# London      1
+# Tokyo       1
+
+# With percentages
+print(df['City'].value_counts(normalize=True))
+# Output:
+# New York    0.500
+# London      0.250
+# Tokyo       0.250
+
+# Sort by frequency
+print(df['City'].value_counts(ascending=True))  # Ascending order
+
+# Count including NaN
+print(df['City'].value_counts(dropna=False))    # Include NaN count
+
+# Count unique values
+print(df['City'].nunique())     # Number of unique values
+print(df.nunique())             # Unique count per column
+
+# Total count
+print(df['City'].count())       # Count non-null values
+print(df.count())               # Count per column
+```
+
+### Correlation & Covariance
+
+Understand relationships between numerical columns:
+
+```python
+# Correlation matrix
+print(df[['Age', 'Salary']].corr())
+# Output:
+#            Age    Salary
+# Age     1.000000  0.866025
+# Salary  0.866025  1.000000
+
+# Correlation with specific method
+print(df[['Age', 'Salary']].corr(method='pearson'))   # Pearson (default)
+print(df[['Age', 'Salary']].corr(method='spearman'))  # Spearman
+print(df[['Age', 'Salary']].corr(method='kendall'))   # Kendall
+
+# Correlation with single column
+print(df['Age'].corr(df['Salary']))
+
+# Covariance matrix
+print(df[['Age', 'Salary']].cov())
+# Output:
+#            Age        Salary
+# Age     16.333333   28333.333333
+# Salary  28333.333333  66666666.666667
+
+# Covariance with single column
+print(df['Age'].cov(df['Salary']))
+```
+
+**Interpretation:**
+- **Correlation**: Ranges from -1 to 1
+  - +1: Perfect positive correlation
+  - 0: No linear correlation
+  - -1: Perfect negative correlation
+- **Covariance**: Measures directional relationship (not normalized)
+
+---
+
+## Grouping and Aggregation
+
+### GroupBy
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+})
+
+# Group by column
+grouped = df.groupby('City')
+
+# Apply aggregation functions
+city_stats = grouped.agg({
+    'Age': 'mean',
+    'Salary': ['mean', 'sum', 'count']
+})
+print(city_stats)
+
+# Common aggregations
+grouped.mean(numeric_only=True)      # Mean of each group
+grouped.sum(numeric_only=True)       # Sum of each group
+grouped.count()     # Count in each group
+grouped.size()      # Size of each group
+grouped.min(numeric_only=True)       # Minimum
+grouped.max(numeric_only=True)       # Maximum
+grouped.std(numeric_only=True)       # Standard deviation
+```
+
+### Custom Aggregations
+
+```python
+# Multiple aggregations
+agg_dict = {
+    'Age': ['mean', 'min', 'max'],
+    'Salary': ['sum', 'mean']
+}
+result = df.groupby('City').agg(agg_dict)
+print(result)
+
+# Custom function
+def range_func(x):
+    return x.max() - x.min()
+
+result = df.groupby('City')['Age'].agg(range_func)
+print(result)
+```
+
+### Pivot Tables
+
+Create pivot tables to summarize data (like Excel pivots):
+
+```python
+# Basic pivot table
+pivot = df.pivot_table(
+    values='Salary',
+    index='City',
+    columns='Age',
+    aggfunc='mean'
+)
+print(pivot)
+
+# With multiple aggregations
+pivot = df.pivot_table(
+    values=['Age', 'Salary'],
+    index='City',
+    aggfunc={'Age': 'mean', 'Salary': 'sum'}
+)
+
+# Multiple index levels
+pivot = df.pivot_table(
+    values='Salary',
+    index=['City', 'Name'],
+    aggfunc='mean'
+)
+
+# Fill missing values
+pivot = df.pivot_table(
+    values='Salary',
+    index='City',
+    aggfunc='mean',
+    fill_value=0
+)
+
+# Margins (totals)
+pivot = df.pivot_table(
+    values='Salary',
+    index='City',
+    aggfunc='mean',
+    margins=True  # Add row/column totals
+)
+```
+
+### Crosstab
+
+Analyze frequency distributions across categories:
+
+```python
+# Basic crosstab
+crosstab = pd.crosstab(df['City'], df['Age'])
+print(crosstab)
+
+# With margins
+crosstab = pd.crosstab(df['City'], df['Age'], margins=True)
+
+# Normalize (percentages)
+crosstab = pd.crosstab(df['City'], df['Age'], normalize=True)  # Overall percentages
+crosstab = pd.crosstab(df['City'], df['Age'], normalize='index')  # Row percentages
+crosstab = pd.crosstab(df['City'], df['Age'], normalize='columns')  # Column percentages
+
+# Multiple columns
+crosstab = pd.crosstab([df['City'], df['Name']], df['Age'])
+```
+
+---
+
+## Merging and Joining
+
+### Merge (SQL-like joins)
+
+```python
+# Sample DataFrames
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3],
+    'Name': ['Alice', 'Bob', 'Charlie']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 4],
+    'Salary': [50000, 60000, 70000]
+})
+
+# Inner join (default)
+merged = pd.merge(df1, df2, on='ID', how='inner')
+print(merged)
+# Output:
+#    ID     Name  Salary
+# 0   1    Alice   50000
+# 1   2      Bob   60000
+
+# Left join
+merged = pd.merge(df1, df2, on='ID', how='left')
+print(merged)
+
+# Right join
+merged = pd.merge(df1, df2, on='ID', how='right')
+print(merged)
+
+# Outer join
+merged = pd.merge(df1, df2, on='ID', how='outer')
+print(merged)
+```
+
+### Concatenation
+
+```python
+# Concatenate DataFrames
+df1 = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+df2 = pd.DataFrame({'A': [5, 6], 'B': [7, 8]})
+
+# Vertical concatenation
+result = pd.concat([df1, df2], axis=0)
+print(result)
+
+# Horizontal concatenation
+result = pd.concat([df1, df2], axis=1)
+print(result)
+
+# With keys
+result = pd.concat([df1, df2], keys=['first', 'second'])
+print(result)
+```
+
+---
+
+## Time Series Operations
+
+### Working with Dates
+
+```python
+# Create date range
+dates = pd.date_range('2024-01-01', periods=10, freq='D')
+print(dates)
+
+# Numeric frame with a DatetimeIndex for resampling demos
+df = pd.DataFrame({
+    'Age': np.arange(10),
+    'Salary': np.linspace(50000, 59000, 10),
+}, index=pd.date_range('2024-01-01', periods=10, freq='D'))
+df.index.name = 'Date'
+print(df)
+
+# Resampling
+df_daily = df.resample('D').mean(numeric_only=True)      # Daily
+df_weekly = df.resample('W').mean(numeric_only=True)     # Weekly
+df_monthly = df.resample('ME').mean(numeric_only=True)    # Month end
+
+# Time-based filtering
+df_jan = df[df.index.month == 1]       # January data
+df_2024 = df[df.index.year == 2024]     # 2024 data
+```
+
+### DateTime Conversion (pd.to_datetime)
+
+Convert string or numeric date columns into datetime objects:
+
+```python
+# Convert string to datetime
+df = pd.DataFrame({'Date': ['2024-01-15', '2024-02-20', '2024-03-25']})
+df['Date'] = pd.to_datetime(df['Date'])
+df['Date'] = pd.to_datetime(df['Date'], format='%Y-%m-%d')  # With format
+
+# Handle different formats
+df = pd.DataFrame({'Date': ['15/03/2024', '20/04/2024']})
+df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
+
+# Handle errors
+df = pd.DataFrame({'Date': ['2024-01-15', 'invalid', '2024-02-20']})
+df['Date'] = pd.to_datetime(df['Date'], errors='coerce')  # Invalid -> NaT
+
+# Convert multiple columns
+df = pd.DataFrame({
+    'Start': ['2024-01-01', '2024-02-01'],
+    'End': ['2024-01-31', '2024-02-28'],
+})
+df[['Start', 'End']] = df[['Start', 'End']].apply(pd.to_datetime)
+```
+
+### DateTime Indexing & Resampling
+
+```python
+# Numeric time series for resampling demos
+df = pd.DataFrame({
+    'Sales': np.random.randint(100, 500, size=90),
+    'Revenue': np.random.randint(1000, 5000, size=90),
+}, index=pd.date_range('2024-01-01', periods=90, freq='D'))
+df.index.name = 'Date'
+
+# Resample data by different time periods
+df_daily = df.resample('D').mean(numeric_only=True)      # Daily ('D')
+df_weekly = df.resample('W').mean(numeric_only=True)     # Weekly ('W')
+df_monthly = df.resample('ME').mean(numeric_only=True)    # Month end
+df_yearly = df.resample('YE').mean(numeric_only=True)     # Year end
+df_quarterly = df.resample('QE').mean(numeric_only=True)  # Quarter end
+
+# Different aggregation functions
+df_monthly_sum = df.resample('ME').sum(numeric_only=True)
+df_monthly_count = df.resample('ME').count()
+df_monthly_max = df.resample('ME').max(numeric_only=True)
+
+# Multiple aggregations
+df_monthly = df.resample('ME').agg({
+    'Sales': 'sum',
+    'Revenue': 'mean'
+})
+```
+
+### Date-Based Filtering & Slicing (loc)
+
+```python
+df = pd.DataFrame(
+    {'Value': np.arange(31)},
+    index=pd.date_range('2024-01-01', periods=31, freq='D')
+)
+
+# Filter by specific date
+df_specific = df.loc['2024-01-15']
+
+# Filter by month
+df_jan = df.loc['2024-01']              # January 2024
+df_jan = df.loc['2024-01-01':'2024-01-31']  # Date range
+
+# Filter by year
+df_2024 = df.loc['2024']                # All of 2024
+df_2024 = df.loc['2024-01-01':'2024-12-31']  # Explicit range
+
+# Filter by date range
+df_range = df.loc['2024-01-10':'2024-01-20']  # Custom range
+
+# Filter by year and month
+df_jan_2024 = df.loc['2024-01']
+
+# Using datetime components
+df_jan = df[df.index.month == 1]        # January (any year)
+df_2024 = df[df.index.year == 2024]      # Year 2024
+df_weekend = df[df.index.weekday >= 5]   # Weekend (Saturday=5, Sunday=6)
+```
+
+### Rolling & Expanding Windows
+
+Calculate moving averages, cumulative sums, or trends over time:
+
+```python
+df = pd.DataFrame(
+    {'Value': np.random.randn(60).cumsum() + 100},
+    index=pd.date_range('2024-01-01', periods=60, freq='D')
+)
+
+# Rolling window (moving average)
+df['Rolling_Mean_7'] = df['Value'].rolling(window=7).mean()
+df['Rolling_Mean_30'] = df['Value'].rolling(window=30).mean()
+df['Rolling_Std'] = df['Value'].rolling(window=7).std()
+df['Rolling_Sum'] = df['Value'].rolling(window=7).sum()
+df['Rolling_Max'] = df['Value'].rolling(window=7).max()
+
+# Rolling with minimum periods
+df['Rolling_Mean'] = df['Value'].rolling(window=7, min_periods=3).mean()
+
+# Expanding window (cumulative)
+df['Expanding_Mean'] = df['Value'].expanding().mean()
+df['Expanding_Sum'] = df['Value'].expanding().sum()
+df['Expanding_Max'] = df['Value'].expanding().max()
+df['Expanding_Min'] = df['Value'].expanding().min()
+
+# Shift values (lag/lead)
+df['Previous'] = df['Value'].shift(1)
+df['Next'] = df['Value'].shift(-1)
+df['Lag_7'] = df['Value'].shift(7)
+
+# Percentage change
+df['Pct_Change'] = df['Value'].pct_change()
+df['Pct_Change_7'] = df['Value'].pct_change(periods=7)
+```
+
+### Practical Use Cases
+
+```python
+# Example: Sales analysis
+sales_df = pd.DataFrame({
+    'Date': pd.date_range('2024-01-01', periods=100, freq='D'),
+    'Sales': np.random.randint(1000, 5000, 100)
+})
+sales_df = sales_df.set_index('Date')
+
+# Monthly sales report
+monthly_sales = sales_df.resample('ME').sum()
+print("Monthly Sales:")
+print(monthly_sales)
+
+# 7-day moving average for trend
+sales_df['MA_7'] = sales_df['Sales'].rolling(7).mean()
+
+# Year-over-year comparison
+sales_df['YoY'] = sales_df['Sales'].pct_change(periods=365)
+```
+
+---
+
+## Advanced Tricks and Performance
+
+### Applying Custom Functions (apply, map)
+
+Use `apply()` for row- or column-wise operations and `map()` for element-wise transformations.
+
+#### Apply Function
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Apply function to each column
+df.select_dtypes(include=[np.number]).apply(np.mean)
+df.select_dtypes(include=[np.number]).apply(lambda x: x.max() - x.min())  # Range of numeric columns
+
+# Apply function to each row
+df.apply(lambda row: row['Age'] + row['Salary'], axis=1)  # Row-wise
+
+# Apply to specific column
+df['Age'].apply(lambda x: x * 2)       # Double each age
+df['Name'].apply(len)                  # Length of each name
+
+# Apply custom function
+def categorize_age(age):
+    if age < 30:
+        return 'Young'
+    elif age < 50:
+        return 'Middle'
+    else:
+        return 'Senior'
+
+df['Age_Category'] = df['Age'].apply(categorize_age)
+
+# Apply with multiple arguments
+def calculate_bonus(salary, multiplier):
+    return salary * multiplier
+
+df['Bonus'] = df['Salary'].apply(lambda x: calculate_bonus(x, 0.1))
+```
+
+#### Map Function
+
+Element-wise transformations on Series:
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Map using dictionary
+mapping = {'New York': 'NY', 'London': 'LON', 'Tokyo': 'TYO'}
+df['City_Code'] = df['City'].map(mapping)
+
+# Map using function
+df['Age_Doubled'] = df['Age'].map(lambda x: x * 2)
+
+# Map with default for missing values
+df['City_Code'] = df['City'].map(mapping).fillna('Unknown')
+```
+
+**Difference:**
+- **apply()**: More flexible, can work on entire DataFrame or Series
+- **map()**: Faster for simple element-wise transformations on Series
+
+### Lambda Functions
+
+Quickly apply inline transformations:
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Compute totals
+df['Total'] = df.apply(lambda row: row['Age'] + row['Salary'], axis=1)
+
+# Normalize values
+df['Normalized_Age'] = df['Age'].apply(lambda x: (x - df['Age'].min()) / (df['Age'].max() - df['Age'].min()))
+
+# Categorize grades
+df['Grade'] = df['Score'].apply(lambda x: 'A' if x >= 90 else 'B' if x >= 80 else 'C')
+
+# Conditional updates
+df['Status'] = df.apply(lambda row: 'High' if row['Salary'] > 60000 else 'Low', axis=1)
+
+# Multiple conditions
+df['Category'] = df.apply(
+    lambda row: 'High Earner' if row['Salary'] > 60000 and row['Age'] > 30 else 'Other',
+    axis=1
+)
+```
+
+### Custom Logic Functions
+
+Define user functions for complex operations:
+
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Complex grading function
+def calculate_grade(score):
+    if score >= 90:
+        return 'A'
+    elif score >= 80:
+        return 'B'
+    elif score >= 70:
+        return 'C'
+    elif score >= 60:
+        return 'D'
+    else:
+        return 'F'
+
+df['Grade'] = df['Score'].apply(calculate_grade)
+
+# Conditional updates with multiple columns
+def determine_status(row):
+    if row['Age'] < 30 and row['Salary'] > 50000:
+        return 'Young High Earner'
+    elif row['Age'] >= 50:
+        return 'Senior'
+    else:
+        return 'Standard'
+
+df['Status'] = df.apply(determine_status, axis=1)
+
+# Data cleaning function
+def clean_name(name):
+    name = str(name).strip()
+    name = name.title()
+    return name
+
+df['Name'] = df['Name'].apply(clean_name)
+```
+
+### Practical Use Cases
+
+**Automate repetitive transformations:**
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Create derived columns
+df['Age_Group'] = df['Age'].apply(lambda x: f"{(x//10)*10}s")
+df['Salary_Per_Age'] = df.apply(lambda row: row['Salary'] / row['Age'], axis=1)
+
+# Enhance datasets with dynamic calculations
+df['Years_Until_Retirement'] = df['Age'].apply(lambda x: 65 - x if x < 65 else 0)
+df['Tax_Bracket'] = df['Salary'].apply(
+    lambda x: 'Low' if x < 50000 else 'Medium' if x < 100000 else 'High'
+)
+```
+
+**Performance Tips:**
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Vectorized operations are faster than apply
+# SLOW:
+df['New'] = df['Age'].apply(lambda x: x * 2)
+
+# FAST:
+df['New'] = df['Age'] * 2
+
+# Use apply only when necessary (complex logic)
+# For simple operations, use vectorized operations
+```
+
+---
+
+## Practice Exercises
+
+### Exercise 1: Data Loading and Inspection
+
+**Task:** Load a CSV file, inspect its structure, and display basic statistics.
+
+**Solution:**
+```python
+df = pd.read_csv('data.csv')
+print("Shape:", df.shape)
+print("\nFirst 5 rows:")
+print(df.head())
+print("\nInfo:")
+print(df.info())
+print("\nStatistics:")
+print(df.describe())
+print("\nMissing values:")
+print(df.isnull().sum())
+```
+
+### Exercise 2: Data Filtering
+
+**Task:** Filter data where age > 30 and salary > 60000, then select only Name and City columns.
+
+**Solution:**
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+filtered = df[(df['Age'] > 30) & (df['Salary'] > 60000)]
+result = filtered[['Name', 'City']]
+print(result)
+```
+
+### Exercise 3: Grouping and Aggregation
+
+**Task:** Group by City and calculate average age and total salary for each city.
+
+**Solution:**
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+result = df.groupby('City').agg({
+    'Age': 'mean',
+    'Salary': 'sum'
+})
+print(result)
+```
+
+### Exercise 4: Data Cleaning
+
+**Task:** Handle missing values by filling numeric columns with mean and dropping rows with missing categorical data.
+
+**Solution:**
+```python
+# Ensure a stable demo frame for this cell
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [50000, 60000, 70000, 55000],
+    'Status': ['Active', 'A', 'active', 'Inactive'],
+    'Date': ['2024-01-15', '2024-02-20', '2024-03-25', '2024-04-10'],
+    'IsActive': [True, False, True, True],
+    'Department': ['Eng', 'Sales', 'Eng', 'HR'],
+    'Score': [88, 92, 79, 85],
+})
+
+# Fill numeric columns
+numeric_cols = df.select_dtypes(include=[np.number]).columns
+df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
+
+# Drop rows with missing categorical data
+categorical_cols = df.select_dtypes(include=['object']).columns
+df = df.dropna(subset=categorical_cols)
+```
+
+### Exercise 5: Merging DataFrames
+
+**Task:** Merge two DataFrames on a common key and handle missing values.
+
+**Solution:**
+```python
+df1 = pd.DataFrame({'ID': [1, 2, 3], 'Name': ['A', 'B', 'C']})
+df2 = pd.DataFrame({'ID': [2, 3, 4], 'Value': [10, 20, 30]})
+
+merged = pd.merge(df1, df2, on='ID', how='outer')
+merged = merged.fillna(0)  # Fill missing with 0
+print(merged)
+```
+
+---
+
+## Key Takeaways
+
+1. **DataFrames are powerful** - Think of them as Excel spreadsheets on steroids
+2. **Boolean indexing** - Powerful way to filter data
+3. **GroupBy** - Essential for data analysis
+4. **Handle missing data** - Always check and clean your data
+5. **Practice** - Work with real datasets to master Pandas
+
+---
+
+## Common Patterns
+
+### Pattern 1: Data Exploration
+
+```python
+# Complete data exploration
+def explore_data(df):
+    print("Shape:", df.shape)
+    print("\nColumns:", df.columns.tolist())
+    print("\nData types:\n", df.dtypes)
+    print("\nMissing values:\n", df.isnull().sum())
+    print("\nSummary statistics:\n", df.describe())
+    print("\nFirst few rows:\n", df.head())
+    return df.info()
+
+explore_data(df)
+```
+
+### Pattern 2: Data Cleaning Pipeline
+
+```python
+def clean_data(df):
+    # Remove duplicates
+    df = df.drop_duplicates()
+    
+    # Handle missing values
+    df = df.fillna(df.mean(numeric_only=True))
+    
+    # Remove outliers (example: values beyond 3 standard deviations)
+    for col in df.select_dtypes(include=[np.number]).columns:
+        mean = df[col].mean()
+        std = df[col].std()
+        df = df[(df[col] >= mean - 3*std) & (df[col] <= mean + 3*std)]
+    
+    return df
+```
+
+---
+
+## Handling Large Datasets: Polars and Dask
+
+### When Pandas Isn't Enough
+
+**Pandas Limitations:**
+- Single-threaded operations (uses one CPU core)
+- Memory-intensive (loads entire dataset into RAM)
+- Slower for large datasets (>1GB)
+- Limited parallel processing
+
+**When to Use Alternatives:**
+- Datasets larger than available RAM
+- Need for faster processing
+- Multi-core CPU available
+- Real-time data processing
+
+### Polars: Fast DataFrame Library
+
+**Polars** is a blazingly fast DataFrame library written in Rust, providing a Python API. It's designed to be a drop-in replacement for Pandas with better performance.
+
+**Key Features:**
+- 10-100x faster than Pandas for many operations
+- Lazy evaluation (optimizes queries before execution)
+- Multi-threaded by default
+- Memory efficient
+- Similar API to Pandas
+
+**Installation:**
+```bash
+pip install polars
+```
+
+**Basic Usage:**
+```python
+import polars as pl
+
+# Read CSV (much faster than Pandas for large files)
+df = pl.read_csv("large_file.csv")
+
+# Similar operations to Pandas
+df_filtered = df.filter(pl.col("age") > 30)
+df_grouped = df.group_by("category").agg([
+    pl.col("value").mean().alias("mean_value"),
+    pl.col("value").sum().alias("total_value")
+])
+
+# Lazy evaluation (optimizes before execution)
+df_lazy = pl.scan_csv("large_file.csv")
+result = (df_lazy
+    .filter(pl.col("age") > 30)
+    .group_by("category")
+    .agg([pl.col("value").mean()])
+    .collect()  # Execute the optimized plan
+)
+```
+
+**Performance Comparison:**
+```python
+import pandas as pd
+import polars as pl
+import time
+
+# Large dataset
+n_rows = 10_000_000
+data = {
+    'id': range(n_rows),
+    'value': np.random.randn(n_rows),
+    'category': np.random.choice(['A', 'B', 'C'], n_rows)
+}
+
+# Pandas
+start = time.time()
+df_pd = pd.DataFrame(data)
+result_pd = df_pd[df_pd['value'] > 0].groupby('category')['value'].mean()
+time_pandas = time.time() - start
+print(f"Pandas: {time_pandas:.2f} seconds")
+
+# Polars
+start = time.time()
+df_pl = pl.DataFrame(data)
+result_pl = df_pl.filter(pl.col('value') > 0).group_by('category').agg(pl.col('value').mean())
+time_polars = time.time() - start
+print(f"Polars: {time_polars:.2f} seconds")
+print(f"Speedup: {time_pandas/time_polars:.1f}x faster")
+```
+
+**When to Use Polars:**
+- Large datasets (millions of rows)
+- Need for speed
+- Complex aggregations
+- Data transformations
+
+### Dask: Parallel Pandas
+
+**Dask** provides parallel computing with a Pandas-like API. It breaks large datasets into smaller chunks and processes them in parallel.
+
+**Key Features:**
+- Process datasets larger than memory
+- Parallel processing across CPU cores
+- Distributed computing (multiple machines)
+- Lazy evaluation
+- Compatible with Pandas API
+
+**Installation:**
+```bash
+pip install dask[complete]
+```
+
+**Basic Usage:**
+```python
+import dask.dataframe as dd
+
+# Read large CSV (chunked automatically)
+df = dd.read_csv("huge_file_*.csv")  # Can read multiple files
+
+# Operations look like Pandas
+df_filtered = df[df['age'] > 30]
+df_grouped = df.groupby('category')['value'].mean()
+
+# Compute when ready (lazy evaluation)
+result = df_grouped.compute()  # Executes the computation
+```
+
+**Processing Larger-than-Memory Data:**
+```python
+# Process 50GB file that doesn't fit in 16GB RAM
+df = dd.read_csv("massive_file.csv", blocksize=100_000_000)  # 100MB chunks
+
+# Operations work on chunks
+result = (df
+    .query('value > 1000')
+    .groupby('category')
+    .agg({'value': 'mean', 'count': 'count'})
+    .compute()  # Processes in chunks, writes to disk if needed
+)
+```
+
+**Distributed Computing:**
+```python
+from dask.distributed import Client
+
+# Start distributed cluster
+client = Client('scheduler-address:8786')
+
+# Now Dask operations run across cluster
+df = dd.read_csv("huge_file.csv")
+result = df.groupby('category').value.mean().compute()
+```
+
+**When to Use Dask:**
+- Datasets larger than RAM
+- Need distributed computing
+- Complex ETL pipelines
+- Already using Pandas (easy migration)
+
+### Comparison: Pandas vs Polars vs Dask
+
+| Feature | Pandas | Polars | Dask |
+|---------|--------|--------|------|
+| **Speed** | Baseline | 10-100x faster | 2-10x faster (parallel) |
+| **Memory** | Loads all data | Efficient | Processes in chunks |
+| **API** | Standard | Similar to Pandas | Pandas-compatible |
+| **Best For** | Small-medium data | Large datasets, speed | Very large, distributed |
+| **Learning Curve** | Easy | Easy | Medium |
+
+### Migration Guide
+
+**From Pandas to Polars:**
+```python
+# Pandas
+df = pd.read_csv("data.csv")
+result = df[df['age'] > 30].groupby('category')['value'].mean()
+
+# Polars (very similar)
+df = pl.read_csv("data.csv")
+result = df.filter(pl.col('age') > 30).group_by('category').agg(pl.col('value').mean())
+```
+
+**From Pandas to Dask:**
+```python
+# Pandas
+df = pd.read_csv("data.csv")
+result = df.groupby('category')['value'].mean()
+
+# Dask (almost identical)
+df = dd.read_csv("data.csv")
+result = df.groupby('category')['value'].mean().compute()
+```
+
+### Best Practices
+
+1. **Start with Pandas**: Learn Pandas first, it's the standard
+2. **Switch when needed**: Use Polars/Dask when you hit performance limits
+3. **Profile first**: Measure before optimizing
+4. **Consider data size**: 
+   - < 1GB: Pandas is fine
+   - 1-10GB: Try Polars
+   - > 10GB: Consider Dask
+
+---
+
+## Next Steps
+
+- Practice with real datasets (Kaggle, UCI Repository)
+- Work through the exercises
+- Try Polars or Dask on a large dataset
+- Move to [03-visualization.md](03-visualization.md) to learn data visualization
+
+**Try next:** Take a slow pandas pipeline and profile which step dominates. Only then consider Polars.

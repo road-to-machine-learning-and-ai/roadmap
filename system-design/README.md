@@ -1,0 +1,98 @@
+# System Design for Beginners
+
+Notes I'm writing as I go through "System Design for Beginners" (31 lessons: 22 foundations + 9 interview-style designs). Each file is a chapter you can read on its own. No video required.
+
+The goal is not to memorize buzzwords. By the end you should be able to look at a product like Twitter or Uber and have a rough idea of what's running behind the scenes, and why.
+
+Reading style is borrowed from Alex Xu's books: short sentences, real numbers, concrete examples, trade-offs spelled out.
+
+## Where this fits in the repo
+
+This folder is a **foundational side track** that pairs with the main [Road to Machine Learning](../README.md) curriculum. It teaches the general backend vocabulary the ML guides assume you know.
+
+- **Start here** if you're heading toward ML Engineer, MLOps, Data Engineer, AI Engineer, or Full-Stack AI Engineer.
+- **Then** read the [ML System Design Guide](../resources/ml_system_design_guide.md) for how these ideas apply to serving models, drift, and MLOps.
+- **For interviews,** see the [Interview Preparation Guide](../resources/interview_prep.md#system-design-questions).
+- **For application backend engineering** (routing, auth, Postgres, queues, ops), see the [Backend Engineer Roadmap](../resources/backend_engineering_roadmap.md).
+
+You can read this in parallel with the numbered modules. It pairs especially well with module 13 (deployment) and 14 (MLOps).
+
+## Diagrams
+
+Topology and flow figures in these lessons use **Mermaid** fences (` ```mermaid `) instead of ASCII boxes.
+
+On GitHub you see the Mermaid source. On the [Study Hub](https://nabidinmotion.com/) reader they bake to SVG at sync time (Fit / zoom / pan). Hash rings in [13. Consistent Hashing](./13-consistent-hashing.md) are drawn as a clockwise walk flattened left-to-right. Mermaid is weak at true circles.
+
+The same pattern is used outside this folder for high-ROI pipelines and decision trees (RAG, ML serving, ETL / ER, MLflow, Power BI, MLOps, and several quick-reference pickers). Directory trees (`├──`) stay ASCII on purpose.
+
+## How to read this
+
+Go in order if you're new. The first few chapters set up the vocabulary the later ones lean on.
+
+If you already work in software, jump around. The CAP, sharding, and message queue chapters are the ones engineers usually come back to during interviews.
+
+## Lessons
+
+### Background
+- [00. Computer Architecture](./00-computer-architecture.md)
+- [01. Application Architecture](./01-application-architecture.md)
+- [02. Design Requirements](./02-design-requirements.md)
+
+### Networking
+- [03. Networking Basics](./03-networking-basics.md)
+- [04. TCP and UDP](./04-tcp-and-udp.md)
+- [05. DNS](./05-dns.md)
+
+### APIs
+- [06. HTTP](./06-http.md)
+- [07. WebSockets](./07-websockets.md)
+- [08. API Paradigms](./08-api-paradigms.md)
+- [09. API Design](./09-api-design.md)
+
+### Caching
+- [10. Caching](./10-caching.md)
+- [11. CDNs](./11-cdns.md)
+
+### Proxies
+- [12. Proxies and Load Balancing](./12-proxies-and-load-balancing.md)
+- [13. Consistent Hashing](./13-consistent-hashing.md)
+
+### Storage
+- [14. SQL](./14-sql.md)
+- [15. NoSQL](./15-nosql.md)
+- [16. Replication and Sharding](./16-replication-and-sharding.md)
+- [17. CAP Theorem](./17-cap-theorem.md)
+- [18. Object Storage](./18-object-storage.md)
+
+### Big Data
+- [19. Message Queues](./19-message-queues.md)
+- [20. MapReduce](./20-mapreduce.md)
+
+### Capstone
+- [21. Designing Systems](./21-designing-systems.md): how to run a design from requirements to boxes to deep dives; URL shortener walkthrough
+
+### Interview-style designs
+Practice problems using the four-step process from Chapter 21. Each one is original, written from scratch, with the same structure: clarify, estimate, high-level, deep dives.
+
+- [22. Design a Rate Limiter](./22-design-rate-limiter.md)
+- [23. Design a Social Feed](./23-design-social-feed.md)
+- [24. Design a Group Chat System](./24-design-group-chat.md)
+- [25. Design a Video Streaming Platform](./25-design-video-streaming.md)
+- [26. Design a Cloud File Storage Service](./26-design-cloud-file-storage.md)
+- [27. Design a Maps and Navigation Service](./27-design-maps-and-navigation.md)
+- [28. Design a Distributed Key-Value Store](./28-design-key-value-store.md)
+- [29. Design a Distributed Message Queue](./29-design-distributed-message-queue.md)
+- [30. Design a Real-Time ML Feature Store](./30-design-realtime-feature-store.md): the ML-flavored one you won't find in most courses
+
+## Books and resources I keep coming back to
+
+- *Designing Data-Intensive Applications* by Martin Kleppmann. A widely recommended book on this topic.
+- *System Design Interview Volume 1 & 2* by Alex Xu. Short chapters, real examples, the style I'm copying here.
+- *Site Reliability Engineering* by Google (free online: https://sre.google/books/).
+- ByteByteGo newsletter and YouTube channel. Good for visual recaps.
+- High Scalability blog: http://highscalability.com/. Real architectures from real companies.
+- AWS Architecture Center: https://aws.amazon.com/architecture/.
+
+## A note on numbers
+
+When I quote a number like "Redis handles 100k ops/sec" or "S3 stores 11 nines of durability", those numbers are real-world ballparks. They move year to year. Use them to get a sense of scale, not as gospel.

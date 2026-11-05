@@ -1,0 +1,173 @@
+# Module 02: Introduction to Machine Learning
+
+Understand what machine learning is, how it works, and the different types of ML problems.
+
+> **Before Module 04 (classification):** Skim [Ethics in ML](../resources/ethics_in_ml.md) (30–45 min). Module 04 introduces fairness tooling, ethical framing helps you use it well.
+
+##  What You'll Learn
+
+- What is Machine Learning?
+- Types of Machine Learning
+- ML Workflow and Best Practices
+- Real-world Applications
+
+## ML for beginners curriculum map
+
+| Topic | Where to study (examples in guide) |
+|-------|-------------------------------------|
+| Machine learning for beginners | [Guide](introduction-to-ml.md#ml-for-beginners-curriculum-map-this-guide) |
+| Data types in ML; population vs sample | [Key concepts](introduction-to-ml.md#key-concepts), [Descriptive statistics and sampling](introduction-to-ml.md#descriptive-statistics-and-sampling-foundations) |
+| Descriptive statistics (mean, median, mode, variance, std) | [Descriptive statistics and sampling](introduction-to-ml.md#descriptive-statistics-and-sampling-foundations) |
+| Types of ML; workflow; first project | [Topics covered](#topics-covered) in this README; [First ML project](first-ml-project-tutorial.md) |
+| Next: regression, classification, EDA, features | [Regression](../03-supervised-learning-regression/regression.md#ml-for-beginners-curriculum-map-this-guide), [Classification](../04-supervised-learning-classification/classification.md#ml-for-beginners-curriculum-map-this-guide), [EDA](../01-python-for-data-science/04-exploratory-data-analysis.md#ml-for-beginners-curriculum-map-this-guide), [Feature engineering](../07-feature-engineering/feature-engineering.md#ml-for-beginners-curriculum-map-this-guide) |
+| Projects implementing algorithms | [Beginner projects](../16-projects-beginner/README.md#ml-for-beginners-curriculum-map-projects) |
+
+##  Topics Covered
+
+### What is Machine Learning?
+- Definition and Core Concepts
+- Difference from Traditional Programming
+- Why Machine Learning Matters
+- History and Evolution
+
+### Types of Machine Learning
+
+#### 1. Supervised Learning
+- Learning from labeled data
+- Regression vs Classification
+- Examples: Predicting house prices, spam detection
+
+#### 2. Unsupervised Learning
+- Learning from unlabeled data
+- Clustering and Dimensionality Reduction
+- Examples: Customer segmentation, anomaly detection
+
+#### 3. Reinforcement Learning
+- Learning through interaction
+- Reward-based learning
+- Examples: Game playing, robotics
+
+### Machine Learning Workflow
+
+1. **Problem Definition**: Understand the business problem
+2. **Data Collection**: Gather relevant data
+3. **Data Preparation**: Clean and preprocess data
+4. **Feature Engineering**: Create meaningful features
+5. **Model Selection**: Choose appropriate algorithms
+6. **Training**: Train the model on data
+7. **Evaluation**: Assess model performance
+8. **Deployment**: Put model into production
+9. **Monitoring**: Track model performance over time
+
+### Best Practices
+
+- Start with simple models
+- Use appropriate evaluation metrics
+- Avoid data leakage
+- Split data properly (train/validation/test)
+- Document everything
+- Version control your code and data
+
+### Check yourself
+
+**Wrong mental model:** High accuracy on the same rows you trained on means the model is ready.
+
+**Correction:** Train metrics can look great while the holdout fails. Split first. Score the holdout. Watch for leakage (fitting a scaler on all data before the split).
+
+**Tiny task:** Load a tiny CSV. Split 80/20. Fit only on train. Print train accuracy and test accuracy side by side.
+
+**[Complete Detailed Guide](introduction-to-ml.md)**
+
+## Readiness checkpoint (before Modules 03–05)
+
+You are ready for **supervised learning** (regression and classification) when you can:
+
+- [ ] Distinguish regression, classification, and clustering for real scenarios
+- [ ] Sketch the ML workflow from business question to evaluation
+- [ ] Complete the [First ML Project Tutorial](first-ml-project-tutorial.md) (Iris) **without** only copy-pasting
+- [ ] Explain train/test split and why leakage invalidates metrics
+- [ ] Start or continue a [beginner portfolio project](../16-projects-beginner/README.md)
+
+**Analyst / data scientist track:** Begin [Module 19 SQL](../19-sql-database-fundamentals/README.md) in parallel if you have not already. See [Foundation & Job Market Readiness](../FOUNDATION_AND_JOB_READINESS.md).
+
+### Additional Resources
+
+- **[ML Terminology Reference](ml-terminology.md)**. Glossary of ML terms with examples
+- **[Problem Identification & Algorithm Selection](problem-identification-algorithm-selection.md)** - Guide to identifying ML problems and choosing algorithms
+- **[Your First ML Project Tutorial](first-ml-project-tutorial.md)** - Step-by-step walkthrough building an Iris classifier
+- **[Common Pitfalls & Best Practices](common-pitfalls-best-practices.md):** Avoid mistakes and follow best practices
+- **[AI Myths Busted](../resources/ai_myths_busted.md):** Wrong mental models about AI, ML, and deep learning (understanding, scale, RAG, agents, eval)
+- **[Advanced Introduction to ML Topics](introduction-to-ml-advanced-topics.md)** - Advanced ML workflow patterns, system design principles, data-centric vs model-centric approaches, ML project management, and production considerations
+- **[Introduction to ML Quick Reference](introduction-to-ml-quick-reference.md)** - Quick lookup guide for algorithm selection, ML workflow checklist, problem type identification, terminology, and common patterns
+
+##  Learning Objectives
+
+By the end of this module, you should be able to:
+- Explain what machine learning is and when to use it
+- Distinguish between different types of ML (Supervised, Unsupervised, Reinforcement)
+- Understand the complete ML workflow from problem to deployment
+- Identify which type of ML to use for a given problem
+- Select appropriate algorithms for different scenarios
+- Build your first ML model from scratch
+- Understand common ML terminology
+- Avoid common pitfalls and follow best practices
+
+##  Exercises
+
+1. **Identify ML Problem Types**: Classify real-world scenarios (regression/classification/clustering)
+2. **Design ML Workflow**: Create workflow for a given business problem
+3. **Build First Model**: Complete the [First ML Project Tutorial](first-ml-project-tutorial.md)
+4. **Algorithm Selection**: Use the [Algorithm Selection Guide](problem-identification-algorithm-selection.md) to choose algorithms for different problems
+5. **Terminology Quiz**: Test your understanding using the [ML Terminology Reference](ml-terminology.md)
+
+##  Key Concepts
+
+- **Training Data**: Data used to teach the model
+- **Testing Data**: Data used to evaluate the model
+- **Features**: Input variables
+- **Labels/Targets**: Output variables (for supervised learning)
+- **Model**: The learned function that makes predictions
+- **Overfitting**: Model memorizes training data, performs poorly on new data
+- **Underfitting**: Model is too simple, can't capture patterns
+
+## Documentation & Learning Resources
+
+**Official Documentation:**
+- [Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)
+- [Scikit-learn API Reference](https://scikit-learn.org/stable/modules/classes.html)
+
+**Free Courses:**
+- [Machine Learning Crash Course - Google](https://developers.google.com/machine-learning/crash-course): Free comprehensive course
+- [Introduction to Machine Learning - MIT](https://ocw.mit.edu/courses/6-036-introduction-to-machine-learning-fall-2020/): Free MIT course
+- [Machine Learning (Coursera - Andrew Ng)](https://www.coursera.org/learn/machine-learning): Free audit available
+- [Machine Learning with Python (IBM Coursera)](https://www.coursera.org/learn/machine-learning-with-python): Free audit available
+
+**Tutorials:**
+- [Scikit-learn Tutorial](https://scikit-learn.org/stable/tutorial/index.html)
+- [Machine Learning Tutorial (W3Schools)](https://www.w3schools.com/python/python_ml_getting_started.asp)
+- [ML Basics (Kaggle Learn)](https://www.kaggle.com/learn/intro-to-machine-learning): Free micro-course
+
+**Video Tutorials:**
+- [Machine Learning Course (StatQuest)](https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF)
+- [Machine Learning Explained (3Blue1Brown)](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+
+**Books (Free):**
+- [Introduction to Statistical Learning (Free PDF)](https://www.statlearning.com/): Free comprehensive textbook
+- [Hands-On Machine Learning (O'Reilly)](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/): Check library access
+- [Pattern Recognition and Machine Learning (Bishop)](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf): Advanced but comprehensive
+
+**Interactive Learning:**
+- [Kaggle Learn - Intro to Machine Learning](https://www.kaggle.com/learn/intro-to-machine-learning): Free hands-on course
+- [Google's Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course): Free with exercises
+- [Fast.ai Practical Deep Learning](https://www.fast.ai/): Free practical ML course
+
+**Tools and Platforms:**
+- [Scikit-learn Algorithm Cheat Sheet](https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html): Visual algorithm selection guide
+- [Google Colab](https://colab.research.google.com/): Free Jupyter notebooks in the cloud
+- [Kaggle Notebooks](https://www.kaggle.com/code): Free ML environment with datasets
+
+---
+
+**Previous Module:** [01-python-for-data-science](../01-python-for-data-science/README.md)  
+**Next Module:** [03-supervised-learning-regression](../03-supervised-learning-regression/README.md)
+

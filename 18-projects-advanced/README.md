@@ -1,0 +1,352 @@
+# Advanced Projects
+
+Complex, **production-style** portfolio projects. Completing a brief is not the same as SRE-hardened production (auth, multi-AZ, SLOs, on-call). **These nine projects ship as detailed README briefs and capstone-style specs.** You design and implement the full pipeline.
+
+> **Time series:** Project 3 overlaps with [Module 15](../15-time-series-analysis/README.md) and [intermediate project 6](../17-projects-intermediate/project-06-time-series-forecasting/README.md), pick one path: [TIME_SERIES_LEARNING_PATH.md](../TIME_SERIES_LEARNING_PATH.md).
+
+## Prerequisites
+
+Before starting these projects, you should have completed:
+- All Intermediate Projects
+- Module 09: Neural Networks Basics
+- Module 10: Deep Learning Frameworks
+- Module 11: Computer Vision (for CV projects)
+- Module 12: Natural Language Processing (for NLP projects)
+- Module 13: Model Deployment
+- Module 14: MLOps Basics
+
+## CNN and RNN curriculum map (projects)
+
+| Project idea | Modality | Notes / datasets |
+|--------------|------------|-------------------|
+| **Hate speech detection** (BERT / mBERT / Bangla BERT) | NLP Transformer | Fine-tune multilingual checkpoints (e.g. `bert-base-multilingual-cased`, community **Bangla-BERT** weights) on [HateXplain](https://github.com/hate-alert/HateXplain) or similar; follow [NLP Transformers section](../12-natural-language-processing/nlp.md#transformers) |
+| **Skin lesion classification** | CNN | [ISIC Archive](https://www.isic-archive.com/): transfer learning from ImageNet CNNs; see [Computer vision](../11-computer-vision/computer-vision.md#transfer-learning) |
+| **Sentiment analysis of tweets** | RNN or Transformer | Public Twitter sentiment corpora; compare **LSTM** vs **BERT** as in [NLP guide](../12-natural-language-processing/nlp.md#rnns-and-lstms) |
+| **Text generation** | Decoder / LM | Fine-tune small GPT-style or causal LM with Hugging Face `generate()`; see [Transformers inference](../12-natural-language-processing/nlp.md#transformer-encoder-decoder-and-inference) and [GenAI phase](../25-generative-ai-llms/README.md) |
+
+##  Projects
+
+### Project 1: Image Classification (CIFAR-10)
+**Difficulty**: Advanced  
+**Time**: 1-2 weeks  
+**Skills**: CNNs, Transfer Learning, Data Augmentation, Model Optimization
+
+Build a CNN to classify images into 10 categories with high accuracy.
+
+**What you'll learn:**
+- Advanced CNN architectures
+- Transfer learning with pre-trained models
+- Data augmentation strategies
+- Model optimization techniques
+- Handling complex image data
+
+**Dataset**: [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) (built into Keras)
+
+**Extensions:**
+- Achieve >90% accuracy
+- Try different architectures (ResNet, EfficientNet)
+- Deploy as web service
+- Build mobile app integration
+
+---
+
+### Project 2: Sentiment Analysis on Reviews
+**Difficulty**: Advanced  
+**Time**: 1-2 weeks  
+**Skills**: NLP, RNNs/LSTMs, Transformers, Text Classification
+
+Build a sentiment analysis system for product/movie reviews.
+
+**What you'll learn:**
+- Advanced text preprocessing
+- Word embeddings (Word2Vec, GloVe)
+- RNN/LSTM architectures
+- Transformer models (BERT)
+- Handling different text lengths
+
+**Dataset**: [IMDB Reviews](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews) or Amazon Reviews
+
+**Extensions:**
+- Multi-class sentiment (positive/neutral/negative)
+- Aspect-based sentiment analysis
+- Real-time API
+- Model explainability
+
+---
+
+### Project 3: Time Series Forecasting (Advanced)
+**Difficulty**: Advanced  
+**Time**: 1-2 weeks  
+**Skills**: Time Series, LSTM, ARIMA, Prophet, Feature Engineering
+
+Build advanced forecasting models for complex time series data.
+
+**What you'll learn:**
+- Advanced time series techniques
+- LSTM for sequences
+- Prophet for trend/seasonality
+- Feature engineering for time series
+- Multi-step ahead forecasting
+
+**Dataset**: Stock prices, energy consumption, sales data
+
+**Extensions:**
+- Multiple time series
+- External features
+- Uncertainty quantification
+- Real-time forecasting system
+
+---
+
+### Project 4: LLM Chatbot & RAG System
+**Difficulty**: Advanced  
+**Time**: 2-3 weeks  
+**Skills**: Modern LLMs, RAG, Vector Databases, LangChain, Prompt Engineering
+
+Build a demo or staging RAG (Retrieval-Augmented Generation) system that ingests documents, stores embeddings in a vector store, and answers questions with an LLM. Treat retrieval eval, citations, and cost logs as part of "done." This is a practice demo, not a live customer system.
+
+**What you'll learn:**
+- Prompt engineering techniques
+- Vector database integration (Pinecone, ChromaDB, or Weaviate)
+- Document ingestion and chunking
+- Embedding generation and storage
+- RAG pipeline implementation
+- LangChain/LangGraph for orchestration
+- RAG evaluation (retrieval hit-rate, faithfulness, groundedness)
+- Demo or staging deploy (local API, Spaces, or similar)
+
+**Core Components:**
+1. **Document Processing**: PDF/document parsing and chunking
+2. **Embedding Generation**: Convert text to vectors using embedding models
+3. **Vector Database**: Store and retrieve relevant document chunks
+4. **LLM Integration**: Use GPT-4, Llama 3, or open-source LLMs
+5. **RAG Pipeline**: Combine retrieval with generation
+6. **Evaluation**: Primary scores are retrieval hit-rate, faithfulness / groundedness, and citation coverage. BLEU/ROUGE are optional secondary n-gram checks, not the main RAG quality bar.
+
+**Dataset**: 
+- Custom PDFs/documents (technical docs, research papers, or a public knowledge base you own)
+- Or use public datasets like [Natural Questions](https://ai.google.com/research/NaturalQuestions)
+
+**Tech Stack:**
+- LLM: OpenAI GPT-4, Anthropic Claude, or Llama 3 (via Hugging Face)
+- Vector DB: Pinecone, ChromaDB, Weaviate, or FAISS
+- Framework: LangChain or LangGraph
+- Embeddings: OpenAI embeddings, sentence-transformers, or BGE models
+
+**Extensions:**
+- Multi-document RAG
+- Citation and source tracking
+- Streaming responses
+- Chat history and context management
+- Demo deploy to Hugging Face Spaces or a staging container
+- Grow the eval set (hard multi-chunk questions, refusal cases)
+- Implement query rewriting and query expansion
+
+---
+
+### Project 5: Object Detection
+**Difficulty**: Advanced  
+**Time**: 2-3 weeks  
+**Skills**: Computer Vision, Object Detection, YOLO, R-CNN, Transfer Learning
+
+Detect and localize multiple objects in images.
+
+**What you'll learn:**
+- Object detection architectures
+- YOLO (You Only Look Once)
+- R-CNN family
+- Bounding box regression
+- Evaluation metrics (mAP)
+
+**Dataset**: [COCO Dataset](https://cocodataset.org/) or custom dataset
+
+**Extensions:**
+- Real-time detection
+- Multiple object classes
+- Video object detection
+- Deploy for edge devices
+
+---
+
+### Project 6: End-to-End ML Pipeline
+**Difficulty**: Advanced  
+**Time**: 2-3 weeks  
+**Skills**: MLOps, CI/CD, Model Deployment, Monitoring, Full Stack
+
+Build a complete, production-**style** ML system from data to a local or staging deploy. A README checklist is not a multi-region production launch.
+
+**What you'll learn:**
+- End-to-end ML pipeline
+- Data versioning (DVC)
+- Experiment tracking (MLflow)
+- Model deployment (Docker, Kubernetes)
+- Monitoring and logging
+- CI/CD for ML
+
+**Project Components:**
+- Data pipeline
+- Training pipeline
+- Model registry
+- API service
+- Monitoring dashboard
+- Automated retraining
+
+**Extensions:**
+- A/B testing framework
+- Feature store
+- Model explainability dashboard
+- AutoML integration
+
+---
+
+### Project 7: Generative Model (GAN/VAE)
+**Difficulty**: Advanced  
+**Time**: 2-3 weeks  
+**Skills**: Generative Models, GANs, VAEs, Deep Learning
+
+Build a generative model to create new images or text.
+
+**What you'll learn:**
+- Generative Adversarial Networks (GANs)
+- Variational Autoencoders (VAEs)
+- Training challenges
+- Evaluation of generative models
+- Applications
+
+**Dataset**: CelebA, MNIST, or custom dataset
+
+**Extensions:**
+- Style transfer
+- Image-to-image translation
+- Text generation
+- Conditional generation
+
+---
+
+### Project 8: Model Explainability & Interpretability
+**Difficulty**: Advanced  
+**Time**: 1-2 weeks  
+**Skills**: SHAP, LIME, Model Interpretation, Explainable AI
+
+Build an explainable ML workflow using SHAP, LIME, and related interpretability tools.
+
+**What you'll learn:**
+- SHAP values (Tree, Kernel, Deep)
+- LIME for local explanations
+- Partial Dependence Plots
+- Feature importance analysis
+- Building explainable ML systems
+- Regulatory compliance considerations
+
+**Dataset**: Credit scoring, medical diagnosis, or loan approval datasets
+
+**Extensions:**
+- Text/image explanations
+- Counterfactual explanations
+- Fairness analysis
+- Explanation quality metrics
+
+---
+
+### Project 9: Model Deployment & Serving
+**Difficulty**: Advanced  
+**Time**: 1-2 weeks  
+**Skills**: FastAPI, Docker, REST APIs, Cloud Deployment, Model Monitoring
+
+Deploy a machine learning model as a production-**shaped** API demo with Docker, basic monitoring hooks, and clear gaps called out (auth, SLOs, on-call).
+
+**What you'll learn:**
+- Building production-**shaped** REST APIs with FastAPI (demo quality, not a blank check for production)
+- Containerizing ML models with Docker
+- Deploying models to cloud platforms
+- Implementing model versioning
+- Setting up monitoring and logging
+- Handling errors and edge cases
+- Optimizing for production
+
+**Dataset**: Any trained model from previous projects
+
+**Extensions:**
+- A/B testing
+- Model monitoring
+- Feature store integration
+- Kubernetes deployment
+
+---
+
+## Capstone Blueprints (Optional, portfolio-oriented)
+
+These are **industry-style capstone blueprints** that are designed to be **safe for a public repo** (no PII, no committed datasets).
+
+- [Capstones Index](capstones/README.md)
+- [ML Engineer Capstone](capstones/capstone-ml-engineer.md)
+- [LLM/RAG Capstone](capstones/capstone-llm-rag-engineer.md)
+- [Data/Analytics (SQL ML) Capstone](capstones/capstone-data-analytics-sql-ml.md)
+
+##  Project Structure
+
+Each project should include:
+```
+project-name/
+ README.md              # Comprehensive project documentation
+ data/                  # Dataset and data processing scripts
+ notebooks/             # Research and experimentation
+ src/                   # Production code
+    data/
+    models/
+    training/
+    evaluation/
+    deployment/
+ tests/                 # Comprehensive test suite
+ config/                # Configuration files
+ models/                # Saved models and checkpoints
+ results/               # Results, papers, presentations
+ docs/                  # Documentation
+ docker/                # Dockerfiles
+ .github/               # CI/CD workflows
+ requirements.txt       # Dependencies
+ setup.py               # Package setup
+ LICENSE                # License file
+```
+
+##  Tips for Success
+
+1. **Research First**: Read papers and understand current strong baselines
+2. **Start Simple**: Build baseline, then add complexity
+3. **Version Control**: Use Git, DVC, MLflow extensively
+4. **Document Everything**: Code, experiments, decisions
+5. **Test Thoroughly**: Unit tests, integration tests
+6. **Deploy**: Ship a local or staging demo (container + API), not a blank claim of live production
+7. **Monitor**: Set up basic monitoring and logging hooks you can show
+8. **Present**: Write a clear presentation or report
+
+##  Learning Outcomes
+
+After completing these projects, you should be able to:
+- Build production-**style** ML demos you can extend
+- Apply strong current techniques with honest eval
+- Handle complex practice problems with real datasets
+- Serve and monitor models in a local or staging setup
+- Work with large datasets
+- Optimize models for a demo serve path
+- Explain and present ML solutions
+
+##  Additional Resources
+
+- [Papers with Code](https://paperswithcode.com/): Latest research
+- [arXiv](https://arxiv.org/): Research papers
+- [GitHub Awesome Lists](https://github.com/sindresorhus/awesome): Curated resources
+- [Kaggle Competitions](https://www.kaggle.com/competitions): Advanced challenges
+
+##  Portfolio Building
+
+These projects help you:
+- Build portfolio evidence
+- Show skills to employers (no hire guarantee)
+- Practice open-source style READMEs
+- Draft blog posts or meetup talks
+
+---
+
+**Ready?** Pick one project that matches your target role and start building. Keep the README honest about what you measured. 
+
