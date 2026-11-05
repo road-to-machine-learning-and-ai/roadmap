@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Study Hub (canonical reader)
-    url: https://nabidinmotion.com/
-    about: Learn on the Study Hub. Curriculum updates are maintainer-only.
+  - name: Website
+    url: https://camdev.site
+    about: Developer site and learning resources.
   - name: Contributing policy
-    url: https://github.com/NabidAlam/road-to-machine-learning/blob/main/CONTRIBUTING.md
+    url: https://github.com/road-to-machine-learning-and-ai/roadmap/blob/master/CONTRIBUTING.md
     about: At the moment we do not accept any public contributions.

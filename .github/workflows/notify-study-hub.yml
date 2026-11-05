@@ -3,15 +3,15 @@
 # This file lives in road-to-machine-learning (independent repo), NOT in the study hub.
 #
 # Instant sync is OPTIONAL. Without secrets, hub still syncs via daily cron or manual
-# "Sync curriculum" on NabidInMotion/nabidinmotion.github.io.
+# sync action.
 #
 # Least-privilege setup (one time):
-# 1. Create a fine-grained PAT with access ONLY to NabidInMotion/nabidinmotion.github.io
+# 1. Create a fine-grained PAT with access ONLY to the target repository
 #    (not All repositories, not classic all-repo PAT, not Polar/factory tokens).
 # 2. In this repo → Settings → Secrets → Actions:
 #      STUDY_HUB_DISPATCH_TOKEN = <that PAT>
 # 3. In this repo → Settings → Variables → Actions:
-#      STUDY_HUB_REPO = NabidInMotion/nabidinmotion.github.io
+#      STUDY_HUB_REPO = <target repo>
 # 4. Push this workflow on main. Operator runbook (hub, gitignored):
 #      .cursor/docs/SECURITY-SYNC-PAT.md
 #

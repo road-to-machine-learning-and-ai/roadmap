@@ -21,6 +21,6 @@ These tracks help people from other fields study machine learning on this repo w
 
 **Start here.** Open your domain syllabus. Pick **Research support** or **Job-oriented study**. Begin at the first Module NN link in that list. Each syllabus also has a **Related resources** section with sibling guides from `resources/` (methods, ethics, communication). Shared catalogs live once here: [courses](../courses.md), [books](../books.md), [tools](../tools.md), [datasets](../datasets.md).
 
-**Pair with the Study Hub.** On [nabidinmotion.com](https://nabidinmotion.com) you can filter Career Path by role after you know which emphasis fits. Progress stays on your device.
+**Career Path.** You can filter your learning path by role after you know which emphasis fits best. Progress stays on your device.
 
 **Try next:** Open your domain row in the table. If you are unsure, start with [physics/README.md](physics/README.md) as a worked example of the syllabus shape.

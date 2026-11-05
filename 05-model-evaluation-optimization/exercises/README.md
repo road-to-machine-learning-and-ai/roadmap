@@ -39,7 +39,7 @@ import runpy
 import sys
 from pathlib import Path
 
-p = Path("road-to-machine-learning/05-model-evaluation-optimization/exercises/solutions.py").resolve()
+p = Path("roadmap/05-model-evaluation-optimization/exercises/solutions.py").resolve()
 sys.path.insert(0, str(p.parent))
 runpy.run_path(str(p), run_name="__main__")
 print("mod05-exercises-smoke OK")

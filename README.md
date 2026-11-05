@@ -1,35 +1,27 @@
-﻿# Road to ML: From Basics to Advanced Topics
+# Road to ML: From Basics to Advanced Topics
 
 <div align="center">
 
-[![GitHub stars](https://img.shields.io/github/stars/NabidAlam/road-to-machine-learning?style=social)](https://github.com/NabidAlam/road-to-machine-learning/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/NabidAlam/road-to-machine-learning?style=social)](https://github.com/NabidAlam/road-to-machine-learning/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/NabidAlam/road-to-machine-learning)](https://github.com/NabidAlam/road-to-machine-learning/issues)
-[![GitHub license](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/NabidAlam/road-to-machine-learning/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/road-to-machine-learning-and-ai/roadmap?style=social)](https://github.com/road-to-machine-learning-and-ai/roadmap/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/road-to-machine-learning-and-ai/roadmap?style=social)](https://github.com/road-to-machine-learning-and-ai/roadmap/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/road-to-machine-learning-and-ai/roadmap)](https://github.com/road-to-machine-learning-and-ai/roadmap/issues)
+[![GitHub license](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/road-to-machine-learning-and-ai/roadmap/blob/master/LICENSE)
 [![Maintainer curated](https://img.shields.io/badge/PRs-not%20accepted-lightgrey)](CONTRIBUTING.md)
 
 <br/>
 
-[![Sponsor NabidAlam](https://img.shields.io/badge/Sponsor-NabidAlam-ea4aaa?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/NabidAlam)
-[![Subscribe on YouTube](https://img.shields.io/badge/YouTube-Subscribe-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@NabidInMotion?sub_confirmation=1)
+[![Sponsor phanphoun](https://img.shields.io/badge/Sponsor-phanphoun-ea4aaa?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/phanphounkh)
+[![Website](https://img.shields.io/badge/Website-camdev.site-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://camdev.site)
 
 **A comprehensive, step-by-step guide to learning Machine Learning from absolute basics to advanced topics**
 
 *Structured path for beginners • 26 Learning Modules • 23 Real-World Projects • Deployment and MLOps topics*
 
-[Start Here](START-HERE.md) • [How to Use the Study Hub](HOW_TO_USE_THE_STUDY_HUB.md) • [Foundation & job readiness](FOUNDATION_AND_JOB_READINESS.md) • [Get Started](#getting-started) • [Learning Path](#learning-path) • [Projects](#stage-9-projects) • [System Design](system-design/README.md) • [Full-stack AI](resources/career_roadmap_guide.md#full-stack-ai-engineer) • [Feedback](#contributing)
+[Start Here](START-HERE.md) • [Foundation & job readiness](FOUNDATION_AND_JOB_READINESS.md) • [Get Started](#getting-started) • [Learning Path](#learning-path) • [Projects](#stage-9-projects) • [System Design](system-design/README.md) • [Full-stack AI](resources/career_roadmap_guide.md#full-stack-ai-engineer) • [Feedback](#contributing)
 
 </div>
 
 ---
-
-<div align="center">
-
-[![Advanced AI Engineering & Architecture Masterclass (Concept Over Code)](https://img.youtube.com/vi/0f4M5SIfugw/maxresdefault.jpg)](https://www.youtube.com/playlist?list=PLCAuWzdnX8zIhdfVRWfUc8FUhTWKROb4p)
-
-**Watch the full playlist on YouTube**
-
-</div>
 
 ## Why This Repository?
 
@@ -38,12 +30,12 @@
 - **Hands-On Learning**: 23 practical projects to build your portfolio
 - **Production Topics**: Deployment, MLOps, and real-world failure modes (not a guarantee that one pass makes you production-ready)
 - **Well-Organized**: Logical progression with clear learning objectives
-- **Maintainer-curated**: Open MIT curriculum. At the moment we do not accept any public contributions. Updates ship via the [Study Hub](https://nabidinmotion.com/). See [CONTRIBUTING.md](CONTRIBUTING.md).
-- **Diagrams**: System Design topologies plus selected pipelines and decision trees (RAG, ML serving, ETL, quick-reference pickers, and more) use Mermaid. On the Study Hub they render as interactive SVGs. Folder trees stay ASCII. See [system-design/README.md](system-design/README.md#diagrams).
+- **Maintainer-curated**: Open MIT curriculum. At the moment we do not accept any public contributions. See [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Diagrams**: System Design topologies plus selected pipelines and decision trees (RAG, ML serving, ETL, quick-reference pickers, and more) use Mermaid. Folder trees stay ASCII. See [system-design/README.md](system-design/README.md#diagrams).
 
 **Built for**: Students, career switchers, and self-learners who want a structured ML path. Outcomes depend on practice, projects, and the job market. This repo does not guarantee a hire.
 
-**Optional support**: If the curriculum helps you, you can [sponsor on GitHub](https://github.com/sponsors/NabidAlam) (also the **Sponsor** button on this repo via [`.github/FUNDING.yml`](.github/FUNDING.yml)). That is voluntary. It does not unlock paid content or change the MIT license.
+**Optional support**: If the curriculum helps you, you can [sponsor on GitHub](https://github.com/sponsors/phanphounkh) (also the **Sponsor** button on this repo via [`.github/FUNDING.yml`](.github/FUNDING.yml)). That is voluntary. It does not unlock paid content or change the MIT license.
 
 ## Career Paths
 
@@ -108,7 +100,6 @@ You don't need to finish all 26 ML modules first. The system design track is **p
 - [Getting Started](#getting-started)
 - [Repository Structure](#repository-structure)
 - [Resources](#resources)
-- [YouTube Playlist](#youtube-playlist)
 - [Career Paths](#career-paths)
 - [Full-stack AI quick start](#full-stack-ai-quick-start)
 - [System design foundations](#system-design-foundations)
@@ -462,8 +453,8 @@ Before starting, you should have:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/NabidAlam/road-to-machine-learning.git
-cd road-to-machine-learning
+git clone https://github.com/road-to-machine-learning-and-ai/roadmap.git
+cd roadmap
 ```
 
 ### 2. Set Up Your Environment
@@ -519,7 +510,7 @@ jupyter notebook
 **Note:** All learning modules now include comprehensive detailed guides with code examples, exercises, and solutions. Beginner projects are fully available with READMEs and code. Intermediate and advanced projects have detailed READMEs with instructions.
 
 ```
-road-to-machine-learning/
+roadmap/
 
  00-prerequisites/
     01-python-basics.md (includes time complexity, iterators/generators)
@@ -961,12 +952,6 @@ road-to-machine-learning/
 | [Power BI Guide](resources/powerbi_guide.md) | Complete Power BI guide: visualizations, DAX, Power Query, data modeling, dashboards, and AI integration |
 | [Excel Data Analysis Guide](resources/excel_data_analysis_guide.md) | Comprehensive Excel guide: functions, pivot tables, charts, dashboards, Power Query, and advanced techniques |
 
-## YouTube Playlist
-
-Follow my curated playlist for guided video walkthroughs:
-
-- [Advanced AI Engineering & Architecture Masterclass (Concept Over Code)](https://www.youtube.com/playlist?list=PLCAuWzdnX8zIhdfVRWfUc8FUhTWKROb4p)
-
 ### Career & Interview Resources
 - [Career Roadmap Guide](resources/career_roadmap_guide.md): **Role-specific learning paths**: Data Analyst, Data Scientist, ML Engineer, LLM Engineer, GenAI Solution Architect, Computer Vision Engineer, AI Engineer, Data Engineer, MLOps Engineer, Research Scientist, BI Analyst
 - [Full-Stack AI Engineer](resources/career_roadmap_guide.md#full-stack-ai-engineer) (overview) · [In-repo lessons](resources/full_stack_track/README.md) · [Blueprint + free resources](resources/full_stack_ai_engineer_roadmap.md): TypeScript through deployment and AI product integration
@@ -1179,10 +1164,10 @@ A: You're ready when you can:
 ### Contributing
 
 **Q: How can I suggest a fix or report an error?**  
-A: At the moment we do not accept any public contributions (no PRs, patches, or community edits). You may open a [GitHub Issue](https://github.com/NabidAlam/road-to-machine-learning/issues) only to report a broken link or factual error. See [CONTRIBUTING.md](CONTRIBUTING.md).
+A: At the moment we do not accept any public contributions (no PRs, patches, or community edits). You may open a [GitHub Issue](https://github.com/road-to-machine-learning-and-ai/roadmap/issues) only to report a broken link or factual error. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Q: Can I use this content for my course/tutorial?**  
-A: Yes. This is open source (MIT License). Please credit the repository and Nabid In Motion.
+A: Yes. This is open source (MIT License). Please credit the repository.
 
 ---
 
@@ -1194,8 +1179,8 @@ This repository is **maintainer-curated**. **At the moment we do not accept any 
 
 ### What you can do
 
-- **Report a problem** (optional): Broken links, typos, or factual errors via [GitHub Issues](https://github.com/NabidAlam/road-to-machine-learning/issues). That is a report, not a contribution channel.
-- **Learn on the Study Hub**: [nabidinmotion.com](https://nabidinmotion.com/) is the canonical reader experience
+- **Report a problem** (optional): Broken links, typos, or factual errors via [GitHub Issues](https://github.com/road-to-machine-learning-and-ai/roadmap/issues). That is a report, not a contribution channel.
+- **Learn and practice**: Work through the lessons and exercises on your own machine.
 - **Fork for yourself**: MIT License allows personal forks and attribution in your own notes. A personal fork is not a contribution channel.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full policy.

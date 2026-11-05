@@ -38,7 +38,7 @@ import runpy
 import sys
 from pathlib import Path
 
-p = Path("road-to-machine-learning/19-sql-database-fundamentals/exercises/solutions.py").resolve()
+p = Path("roadmap/19-sql-database-fundamentals/exercises/solutions.py").resolve()
 sys.path.insert(0, str(p.parent))
 runpy.run_path(str(p), run_name="__main__")
 print("mod19-exercises-smoke OK")

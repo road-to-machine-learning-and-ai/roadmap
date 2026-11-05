@@ -7,11 +7,9 @@ Get the environment running in about 5 minutes. For full navigation, read [START
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/NabidAlam/road-to-machine-learning.git
-cd road-to-machine-learning
+git clone https://github.com/road-to-machine-learning-and-ai/roadmap.git
+cd roadmap
 ```
-
-If you already use this folder as a local checkout beside the [Study Hub](https://nabidinmotion.com/), run commands from inside `road-to-machine-learning/`.
 
 ## Step 2: Set Up Environment
 

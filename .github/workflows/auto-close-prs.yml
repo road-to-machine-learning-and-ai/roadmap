@@ -22,12 +22,11 @@ jobs:
               'Thanks for your interest in Road to ML.',
               '',
               '**At the moment we do not accept any public contributions.**',
-              'Pull requests are closed automatically. Only the maintainer updates this curriculum and the Study Hub.',
+              'Pull requests are closed automatically. Only the maintainer updates this curriculum.',
               '',
-              'Please read [CONTRIBUTING.md](https://github.com/NabidAlam/road-to-machine-learning/blob/main/CONTRIBUTING.md).',
+              'Please read [CONTRIBUTING.md](https://github.com/road-to-machine-learning-and-ai/roadmap/blob/master/CONTRIBUTING.md).',
               '',
-              'To report a broken link or factual error, open a GitHub Issue (problem report only).',
-              'Study Hub: https://nabidinmotion.com/'
+              'To report a broken link or factual error, open a GitHub Issue (problem report only).'
             ].join('\n');
 
             await github.rest.issues.createComment({

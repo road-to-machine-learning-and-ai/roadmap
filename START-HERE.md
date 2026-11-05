@@ -62,8 +62,8 @@ Stage 9 in the roadmap is **depth**, not “start projects here.”
 ## Setup (every path)
 
 ```bash
-git clone https://github.com/NabidAlam/road-to-machine-learning.git
-cd road-to-machine-learning
+git clone https://github.com/road-to-machine-learning-and-ai/roadmap.git
+cd roadmap
 python -m venv ml-env
 ml-env\Scripts\activate          # Windows
 # source ml-env/bin/activate     # Mac/Linux
@@ -108,4 +108,4 @@ Install dependencies from the **repository root**. Individual project folders ma
 - Visual roadmap: [LEARNING_ROADMAP.md](LEARNING_ROADMAP.md)
 - Foundation gates & job market: [FOUNDATION_AND_JOB_READINESS.md](FOUNDATION_AND_JOB_READINESS.md)
 - Time series (pick one path): [TIME_SERIES_LEARNING_PATH.md](TIME_SERIES_LEARNING_PATH.md)
-- Study Hub (read lessons in browser): [nabidinmotion.com](https://nabidinmotion.com/)
+- Website: [camdev.site](https://camdev.site)

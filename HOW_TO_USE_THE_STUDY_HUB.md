@@ -1,39 +1,39 @@
-# How to Use the Study Hub for Maximum Learning
+# How to Learn for Maximum Success
 
-This guide is for the **[Nabid In Motion Study Hub](https://nabidinmotion.com/)**, the subscriber site that syncs this curriculum. It explains **how to learn here**, not what to learn (see [START-HERE.md](START-HERE.md) for that).
+This guide explains **how to learn effectively** with this curriculum, not what to learn (see [START-HERE.md](START-HERE.md) for that).
 
 **Time to read:** ~8 minutes · **Time to set up:** ~10 minutes once
 
 ---
 
-## What this site is (and is not)
+## What this curriculum is (and is not)
 
-| This site is | This site is not |
-|--------------|------------------|
-| A reader for 283 synced lessons | A replacement for writing code on your machine |
-| Local progress tracking (no account) | An autograded course or certificate program |
-| Career-path filtering + project tracker | A linear playlist you finish top to bottom |
+| This curriculum is | This curriculum is not |
+|--------------------|------------------------|
+| A guide for 280+ comprehensive lessons | A replacement for writing code on your machine |
+| Practical hands-on projects | An autograded course or certificate program |
+| Career-path roadmaps + project tracker | A linear playlist you finish top to bottom |
 
-**Rule:** Read lessons here. **Run code locally** (clone the [GitHub repo](https://github.com/NabidAlam/road-to-machine-learning)). Mark a lesson complete only after you reproduce the core examples.
+**Rule:** **Run code locally** (clone the [GitHub repo](https://github.com/road-to-machine-learning-and-ai/roadmap)). Mark a lesson complete only after you reproduce the core examples.
 
 ---
 
 ## 10-minute setup (do once)
 
-1. **Pick a career role** on the homepage (`Career Path` section).  
-   The hub filters modules to what matters for that job. You can switch roles anytime.
+1. **Pick a career role** (`Career Path` section in README).  
+   Focus on modules that matter for that job. You can switch roles anytime.
 
-2. **Set weekly goals** on the homepage progress card:  
+2. **Set weekly goals**:  
    - **Reading goal**, e.g. 3–5 lessons/week (part-time) or 8–12 (full-time)  
    - **Focus goal**, e.g. 150–300 minutes of deep work/week
 
-3. **Open “Today’s practice path”** (homepage) or **Continue Learning**, start the next lesson in your filtered path.
+3. **Start the next lesson** in your path.
 
 4. **Clone the curriculum repo** on your computer:
 
    ```bash
-   git clone https://github.com/NabidAlam/road-to-machine-learning.git
-   cd road-to-machine-learning
+   git clone https://github.com/road-to-machine-learning-and-ai/roadmap.git
+   cd roadmap
    python -m venv ml-env
    ml-env\Scripts\activate          # Windows
    pip install -r requirements.txt
@@ -86,8 +86,6 @@ Read, Reproduce, Reflect, Build, Review
     >
     > Short answer restatable from this lesson.
     ```
-
-    After editing, hub maintainers run `npm run sync:curriculum` and `npm run check:curriculum-recall` so cards stay gold-standard on nabidinmotion.com.
 
 ### Career path filter
 
@@ -187,9 +185,9 @@ Use [exit gates in FOUNDATION_AND_JOB_READINESS.md](FOUNDATION_AND_JOB_READINESS
 
 - **What to learn next:** [START-HERE.md](START-HERE.md)  
 - **Job-market timing:** [FOUNDATION_AND_JOB_READINESS.md](FOUNDATION_AND_JOB_READINESS.md)  
-- **Site / contact:** [nabidinmotion.com](https://nabidinmotion.com/) (Impressum / contact on the Study Hub)  
-- **Curriculum issues:** [road-to-machine-learning Issues](https://github.com/NabidAlam/road-to-machine-learning/issues)
+- **Website:** [camdev.site](https://camdev.site)  
+- **Curriculum issues:** [Issues](https://github.com/road-to-machine-learning-and-ai/roadmap/issues)
 
 ---
 
-**Start now:** [Study Hub homepage](https://nabidinmotion.com/), pick your role, **Continue Learning**.
+**Start now:** Open [START-HERE.md](START-HERE.md), pick your role, and start learning!

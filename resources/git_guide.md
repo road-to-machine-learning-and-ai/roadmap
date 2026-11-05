@@ -516,7 +516,7 @@ origin  https://github.com/username/repo.git (push)
 
 **Example:**
 ```bash
-git remote add origin https://github.com/NabidAlam/road-to-machine-learning.git
+git remote add origin https://github.com/road-to-machine-learning-and-ai/roadmap.git
 ```
 
 ### 2. Clone a Repository
